@@ -1,11 +1,19 @@
 import { ReactNode } from "react";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import DashboardSidebar from "@/components/DashboardSidebar/DashboardSidebar";
+
 
 const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
     return (
         <>
-            <div className="flex flex-col md:flex-row">
-                admin
-                <div className="md:ml-64 md:flex-1 md:h-screen mt-24">{children}</div>
+            <div>
+                <SidebarProvider>
+                    <DashboardSidebar />
+                    <SidebarTrigger />
+                    <div className="md:ml-32 mt-20">
+                        {children}
+                    </div>
+                </SidebarProvider>
             </div>
         </>
     );
