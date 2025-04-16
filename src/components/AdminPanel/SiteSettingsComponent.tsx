@@ -1,18 +1,54 @@
 "use client"
 
-import React, { useState } from 'react';
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import * as React from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+
+import SunEditor from "suneditor-react";
+import "suneditor/dist/css/suneditor.min.css";
+
+// Schema with Zod
+const formSchema = z.object({
+    title: z.string().min(1, "Title is required"),
+    favicon: z.any().optional(),
+    logo: z.any().optional(),
+    aboutUs: z.string().optional(),
+    returnPolicy: z.string().optional(),
+    refundPolicy: z.string().optional(),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 const SiteSettingsComponent = () => {
-    const [title, setTitle] = useState("");
-    const [faviconPreview, setFaviconPreview] = useState<string | null>(null);
-    const [logoPreview, setLogoPreview] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
+    const form = useForm<FormData>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            title: "",
+            aboutUs: "",
+            returnPolicy: "",
+            refundPolicy: "",
+        },
+    });
 
-    const handleImageUpload = (
+    const [faviconPreview, setFaviconPreview] = React.useState<string | null>(null);
+    const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
+    const [loading, setLoading] = React.useState(false);
+
+    const handleImagePreview = (
         e: React.ChangeEvent<HTMLInputElement>,
         setPreview: React.Dispatch<React.SetStateAction<string | null>>
     ) => {
@@ -24,124 +60,169 @@ const SiteSettingsComponent = () => {
         }
     };
 
-
-    const handleSubmit = async () => {
-
-        console.log(title, faviconPreview, logoPreview);
-
-
+    const onSubmit = async (data: FormData) => {
         setLoading(true);
+
         try {
+            const body = {
+                ...data,
+                favicon: faviconPreview,
+                logo: logoPreview,
+            };
+
+            console.log(body);
+            
+
             const res = await fetch("/api/site-settings", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    title,
-                    favicon: faviconPreview,
-                    logo: logoPreview,
-                }),
+                body: JSON.stringify(body),
             });
 
             if (res.ok) {
-                alert("Site settings saved!");
-                setTitle("");
+                alert("Settings saved!");
+                form.reset();
                 setFaviconPreview(null);
                 setLogoPreview(null);
             } else {
-                alert("Failed to save settings");
+                alert("Failed to save settings.");
             }
-        } catch (err) {
-            console.error(err);
-            alert("Something went wrong");
+        } catch (error) {
+            console.error(error);
+            alert("Something went wrong.");
         } finally {
             setLoading(false);
         }
     };
 
-
     return (
-        <div>
-            {/* favicon and website logo, title upload */}
-            <div>
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-3xl font-bold">Site Settings</CardTitle>
-                    </CardHeader>
+        <Card>
+            <CardHeader>
+                <CardTitle className="text-3xl font-bold">Site Settings</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 
-                    <CardContent className="space-y-6">
                         {/* Website Title */}
-                        <div className="space-y-2">
-                            <Label htmlFor="title">Website Title</Label>
-                            <Input
-                                id="title"
-                                placeholder="Enter website title"
-                                value={title}
-                                required
-                                className="peer"
-                                onChange={(e) => setTitle(e.target.value)}
-                            />
-                            <p className="mt-1 text-sm text-red-500 invisible peer-invalid:visible">
-                                ** Website title is required **
-                            </p>
-                        </div>
+                        <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Website Title</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Enter website title" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                        <div className='flex gap-6'>
-                            {/* Favicon Upload */}
-                            <div className="space-y-2">
-                                <Label htmlFor="favicon">Favicon</Label>
-                                <Input
-                                    id="favicon"
-                                    type="file"
-                                    accept="image/*"
-                                    required
-                                    className='peer'
-                                    onChange={(e) => handleImageUpload(e, setFaviconPreview)}
-                                />
-                                <p className="mt-1 text-sm text-red-500 invisible peer-invalid:visible">
-                                    ** Upload an image**
-                                </p>
+                        {/* Favicon + Logo Upload */}
+                        <div className="flex gap-6 flex-wrap">
+                            <FormItem>
+                                <FormLabel>Favicon</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            form.setValue("favicon", e.target.files?.[0]);
+                                            handleImagePreview(e, setFaviconPreview);
+                                        }}
+                                    />
+                                </FormControl>
                                 {faviconPreview && (
-                                    <img
-                                        src={faviconPreview}
-                                        alt="Favicon Preview"
-                                        className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded border"
-                                    />
+                                    <img src={faviconPreview} alt="Favicon Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 border rounded" />
                                 )}
-                            </div>
+                            </FormItem>
 
-                            {/* Logo Upload */}
-                            <div className="space-y-2">
-                                <Label htmlFor="logo">Website Logo</Label>
-                                <Input
-                                    id="logo"
-                                    type="file"
-                                    accept="image/*"
-                                    required
-                                    className='peer'
-                                    onChange={(e) => handleImageUpload(e, setLogoPreview)}
-                                />
-                                <p className="mt-1 text-sm text-red-500 invisible peer-invalid:visible">
-                                    ** Upload an image**
-                                </p>
+                            <FormItem>
+                                <FormLabel>Website Logo</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            form.setValue("logo", e.target.files?.[0]);
+                                            handleImagePreview(e, setLogoPreview);
+                                        }}
+                                    />
+                                </FormControl>
                                 {logoPreview && (
-                                    <img
-                                        src={logoPreview}
-                                        alt="Logo Preview"
-                                        className="w-96 h-36 md:h-52 lg:h-96 mt-2 border rounded"
-                                    />
+                                    <img src={logoPreview} alt="Logo Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 border rounded" />
                                 )}
-                            </div>
+                            </FormItem>
                         </div>
 
-                        {/* Save Button */}
-                        <div className="pt-4">
-                            <Button onClick={handleSubmit}>{loading ? "Saving..." : "Save Settings"}</Button>
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
+                        {/* About Us */}
+                        <FormField
+                            control={form.control}
+                            name="aboutUs"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>About Us</FormLabel>
+                                    <FormControl>
+                                        <SunEditor
+                                            setContents={field.value}
+                                            onChange={field.onChange}
+                                            height="200px"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-        </div>
+                        {/* Return Policy */}
+                        <FormField
+                            control={form.control}
+                            name="returnPolicy"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Return Policy</FormLabel>
+                                    <FormControl>
+                                        <SunEditor
+                                            setContents={field.value}
+                                            onChange={field.onChange}
+                                            height="200px"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Refund Policy */}
+                        <FormField
+                            control={form.control}
+                            name="refundPolicy"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Refund Policy</FormLabel>
+                                    <FormControl>
+                                        <SunEditor
+                                            setContents={field.value}
+                                            onChange={field.onChange}
+                                            height="200px"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Submit */}
+                        <div>
+                            <Button type="submit" disabled={loading}>
+                                {loading ? "Saving..." : "Save Settings"}
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
+            </CardContent>
+        </Card>
     );
 };
 
