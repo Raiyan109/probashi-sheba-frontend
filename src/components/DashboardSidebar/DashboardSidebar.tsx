@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import {
     Sidebar,
@@ -11,15 +13,20 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { ArrowUpCircleIcon, Calendar, Home, Inbox } from 'lucide-react';
+import { ArrowUpCircleIcon, Calendar, Home, Inbox, Settings } from 'lucide-react';
 import Link from 'next/link';
 
 // Menu items.
 const items = [
     {
         title: "Home",
-        url: "#",
+        url: "/admin",
         icon: Home,
+    },
+    {
+        title: "Website Settings",
+        url: "/admin/siteSettings",
+        icon: Settings,
     },
     {
         title: "Inbox",
@@ -53,8 +60,8 @@ const DashboardSidebar = () => {
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton asChild>
                                             <a href={item.url}>
-                                                <item.icon />
-                                                <span>{item.title}</span>
+                                                <item.icon/>
+                                                <span className='text-lg'>{item.title}</span>
                                             </a>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
