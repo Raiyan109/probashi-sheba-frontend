@@ -120,7 +120,7 @@ const SiteSettingsComponent = () => {
                         />
 
                         {/* Favicon + Logo Upload */}
-                        <div className="flex gap-6 flex-wrap">
+                        <div className="flex gap-6  items-start">
                             <FormItem>
                                 <FormLabel>Favicon</FormLabel>
                                 <FormControl>
@@ -134,7 +134,7 @@ const SiteSettingsComponent = () => {
                                     />
                                 </FormControl>
                                 {faviconPreview && (
-                                    <img src={faviconPreview} alt="Favicon Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 border rounded" />
+                                    <img src={faviconPreview} alt="Favicon Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded object-contain" />
                                 )}
                             </FormItem>
 
@@ -151,7 +151,7 @@ const SiteSettingsComponent = () => {
                                     />
                                 </FormControl>
                                 {logoPreview && (
-                                    <img src={logoPreview} alt="Logo Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 border rounded" />
+                                    <img src={logoPreview} alt="Logo Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded object-contain" />
                                 )}
                             </FormItem>
                         </div>
