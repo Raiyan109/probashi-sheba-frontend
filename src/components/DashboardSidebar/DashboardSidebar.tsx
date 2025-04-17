@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import { ArrowUpCircleIcon, Calendar, Home, Inbox, Settings } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 // Menu items.
 const items = [
@@ -41,6 +42,9 @@ const items = [
 ]
 
 const DashboardSidebar = () => {
+
+    const pathname = usePathname();
+
     return (
         <div>
             <Sidebar>
@@ -49,23 +53,33 @@ const DashboardSidebar = () => {
                     <SidebarGroup>
                         <Link href={`/`}>
                             <SidebarGroupLabel className='flex gap-2 items-center justify-center'>
-                                <ArrowUpCircleIcon className="!h-6 !w-6" />
-                                <span className="text-xl font-semibold">Acme Inc.</span>
+                                <ArrowUpCircleIcon className="!h-6 !w-6 text-black" />
+                                <span className="text-xl font-semibold text-black">Probashi Sheba</span>
                             </SidebarGroupLabel>
                         </Link>
                         <hr className='my-5 h-0.5 bg-slate-400' />
                         <SidebarGroupContent>
                             <SidebarMenu>
-                                {items.map((item) => (
-                                    <SidebarMenuItem key={item.title}>
-                                        <SidebarMenuButton asChild>
-                                            <a href={item.url} className='my-1'>
-                                                <item.icon className='!w-6 !h-6'/>
-                                                <span className='text-xl'>{item.title}</span>
-                                            </a>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                ))}
+                                {items.map((item) => {
+                                    const isActive = pathname === item.url;
+
+                                    return (
+                                        <SidebarMenuItem key={item.title}>
+                                            <SidebarMenuButton asChild={false}
+                                                className={`my-1 py-5
+                                                ${isActive
+                                                        ? 'bg-slate-800 text-white hover:bg-slate-800 hover:text-white'
+                                                        : 'hover:bg-slate-200 dark:hover:bg-slate-800'
+                                                    }`}
+                                            >
+                                                <Link href={item.url} className="w-full flex items-center gap-2">
+                                                    <item.icon className='!w-6 !h-6' />
+                                                    <span className='text-xl'>{item.title}</span>
+                                                </Link>
+                                            </SidebarMenuButton>
+                                        </SidebarMenuItem>
+                                    )
+                                })}
                             </SidebarMenu>
                         </SidebarGroupContent>
                     </SidebarGroup >
