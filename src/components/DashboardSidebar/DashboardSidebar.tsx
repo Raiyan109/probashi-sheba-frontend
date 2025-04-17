@@ -49,8 +49,8 @@ const DashboardSidebar = () => {
                     <SidebarGroup>
                         <Link href={`/`}>
                             <SidebarGroupLabel className='flex gap-2 items-center justify-center'>
-                                <ArrowUpCircleIcon className="h-5 w-5" />
-                                <span className="text-base font-semibold">Acme Inc.</span>
+                                <ArrowUpCircleIcon className="!h-6 !w-6" />
+                                <span className="text-xl font-semibold">Acme Inc.</span>
                             </SidebarGroupLabel>
                         </Link>
                         <hr className='my-5 h-0.5 bg-slate-400' />
@@ -59,9 +59,9 @@ const DashboardSidebar = () => {
                                 {items.map((item) => (
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton asChild>
-                                            <a href={item.url}>
-                                                <item.icon/>
-                                                <span className='text-lg'>{item.title}</span>
+                                            <a href={item.url} className='my-1'>
+                                                <item.icon className='!w-6 !h-6'/>
+                                                <span className='text-xl'>{item.title}</span>
                                             </a>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
