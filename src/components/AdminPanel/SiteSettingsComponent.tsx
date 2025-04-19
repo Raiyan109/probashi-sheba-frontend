@@ -30,8 +30,8 @@ const formSchema = z.object({
         message: "Logo is required",
     }),
     // aboutUs: z.string().optional(),
-    // returnPolicy: z.string().optional(),
-    // refundPolicy: z.string().optional(),
+    privacyPolicy: z.string().optional(),
+    termsAndConditions: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -42,8 +42,8 @@ const SiteSettingsComponent = () => {
         defaultValues: {
             title: "",
             // aboutUs: "",
-            // returnPolicy: "",
-            // refundPolicy: "",
+            privacyPolicy: "",
+            termsAndConditions: "",
         },
     });
 
@@ -68,9 +68,11 @@ const SiteSettingsComponent = () => {
 
         try {
             const body = {
-                ...data,
-                favicon: faviconPreview,
-                logo: logoPreview,
+                title: data?.title,
+                favicon: data?.favicon,
+                logo: data?.logo,
+                privacy_policy: data?.privacyPolicy,
+                terms_and_conditions: data?.termsAndConditions
             };
 
             console.log(body);
@@ -200,43 +202,43 @@ const SiteSettingsComponent = () => {
                             )}
                         /> */}
 
-                        {/* Return Policy */}
-                        {/* <FormField
+                        {/* Privacy Policy */}
+                        <Controller
                             control={form.control}
-                            name="returnPolicy"
+                            name="privacyPolicy"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Return Policy</FormLabel>
+                                    <FormLabel>Privacy Policy</FormLabel>
                                     <FormControl>
                                         <SunEditor
                                             setContents={field.value}
-                                            onChange={field.onChange}
+                                            onChange={(content) => field.onChange(content)}
                                             height="200px"
                                         />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        /> */}
+                        />
 
-                        {/* Refund Policy */}
-                        {/* <FormField
+                        {/* Terms And Conditions */}
+                        <Controller
                             control={form.control}
-                            name="refundPolicy"
+                            name="termsAndConditions"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Refund Policy</FormLabel>
+                                    <FormLabel>Terms And Conditions</FormLabel>
                                     <FormControl>
                                         <SunEditor
                                             setContents={field.value}
-                                            onChange={field.onChange}
+                                            onChange={(content) => field.onChange(content)}
                                             height="200px"
                                         />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        /> */}
+                        />
 
                         {/* Submit */}
                         <div>
