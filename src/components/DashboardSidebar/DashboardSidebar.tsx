@@ -13,7 +13,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { ArrowUpCircleIcon, Calendar, Home, Inbox, Settings } from 'lucide-react';
+import { ArrowUpCircleIcon, Calendar, CircleHelp, Home, Inbox, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -30,9 +30,9 @@ const items = [
         icon: Settings,
     },
     {
-        title: "Inbox",
-        url: "#",
-        icon: Inbox,
+        title: "Who We Are",
+        url: "/admin/whoWeAre",
+        icon: CircleHelp,
     },
     {
         title: "Calendar",
