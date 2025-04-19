@@ -24,7 +24,7 @@ import "suneditor/dist/css/suneditor.min.css";
 const whoWeAreItemSchema = z.object({
     whoWeAreItemImage: z.any().optional(),
     whoWeAreItemTitle: z.string().min(1, "Title is required"),
-    whoWeAreItemUnit: z.string().optional(),
+    whoWeAreItemUnit: z.number().optional(),
 });
 
 // Full form schema
@@ -46,11 +46,11 @@ const WhoWeAreComponent = () => {
         defaultValues: {
             whoWeAreTitle: "",
             whoWeAreDescription: "",
-            whoWeAreServices: { whoWeAreItemTitle: "", whoWeAreItemUnit: "" },
-            whoWeAreMigrants: { whoWeAreItemTitle: "", whoWeAreItemUnit: "" },
-            whoWeAreSaved: { whoWeAreItemTitle: "", whoWeAreItemUnit: "" },
-            whoWeAreDays: { whoWeAreItemTitle: "", whoWeAreItemUnit: "" },
-            whoWeAreEmployers: { whoWeAreItemTitle: "", whoWeAreItemUnit: "" },
+            whoWeAreServices: { whoWeAreItemTitle: "", whoWeAreItemUnit: 0 },
+            whoWeAreMigrants: { whoWeAreItemTitle: "", whoWeAreItemUnit: 0 },
+            whoWeAreSaved: { whoWeAreItemTitle: "", whoWeAreItemUnit: 0 },
+            whoWeAreDays: { whoWeAreItemTitle: "", whoWeAreItemUnit: 0 },
+            whoWeAreEmployers: { whoWeAreItemTitle: "", whoWeAreItemUnit: 0 },
         },
     });
 
@@ -71,6 +71,11 @@ const WhoWeAreComponent = () => {
             reader.readAsDataURL(file);
         }
     };
+
+    console.log(imagePreviews);
+    
+    
+    
 
     const renderWhoWeAreItem = (fieldName: keyof FormData, label: string) => (
         <div className="space-y-4 border rounded p-4">
@@ -95,9 +100,9 @@ const WhoWeAreComponent = () => {
                 name={`${fieldName}.whoWeAreItemUnit` as any}
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Unit (Optional)</FormLabel>
+                        <FormLabel>Unit</FormLabel>
                         <FormControl>
-                            <Input placeholder="Enter unit (e.g., per day)" {...field} />
+                            <Input type="number" placeholder="Enter unit" {...field} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -117,7 +122,7 @@ const WhoWeAreComponent = () => {
                     <img
                         src={imagePreviews[fieldName] ?? ""}
                         alt="Preview"
-                        className="w-64 h-36 object-contain mt-2 rounded"
+                        className="w-32 h-32 object-contain mt-1 rounded"
                     />
                 )}
             </FormItem>
@@ -127,41 +132,77 @@ const WhoWeAreComponent = () => {
     const onSubmit = async (data: FormData) => {
         setLoading(true);
         try {
-            const formData = new FormData();
+            // const formData = new FormData();
 
-            console.log("Raw form data:", data);
+            // console.log("Raw form data:", data);
 
-            formData.append("whoWeAreTitle", data.whoWeAreTitle);
-            formData.append("whoWeAreDescription", data.whoWeAreDescription || "");
+            // formData.append("whoWeAreTitle", data.whoWeAreTitle);
+            // formData.append("whoWeAreDescription", data.whoWeAreDescription || "");
 
-            const items = [
-                "whoWeAreServices",
-                "whoWeAreMigrants",
-                "whoWeAreSaved",
-                "whoWeAreDays",
-                "whoWeAreEmployers",
-            ] as const;
+            // const items = [
+            //     "whoWeAreServices",
+            //     "whoWeAreMigrants",
+            //     "whoWeAreSaved",
+            //     "whoWeAreDays",
+            //     "whoWeAreEmployers",
+            // ] as const;
 
-            for (const key of items) {
-                formData.append(`${key}[title]`, data[key].whoWeAreItemTitle);
-                formData.append(`${key}[unit]`, data[key].whoWeAreItemUnit || "");
-                if (data[key].whoWeAreItemImage) {
-                    formData.append(`${key}[image]`, data[key].whoWeAreItemImage);
-                }
-            }
+            // for (const key of items) {
+            //     formData.append(`${key}[title]`, data[key].whoWeAreItemTitle);
+            //     formData.append(`${key}[unit]`, data[key].whoWeAreItemUnit || "");
+            //     if (data[key].whoWeAreItemImage) {
+            //         formData.append(`${key}[image]`, data[key].whoWeAreItemImage);
+            //     }
+            // }
+            
 
-            const res = await fetch("/api/site-settings", {
-                method: "POST",
-                body: formData,
-            });
+            const body = {
+                who_we_are_title: data.whoWeAreTitle,
+                who_we_are_description: data.whoWeAreDescription,
+                who_we_are_services: {
+                    who_we_are_item_title: data.whoWeAreServices?.whoWeAreItemTitle,
+                    who_we_are_item_unit: data.whoWeAreServices?.whoWeAreItemUnit,
+                    who_we_are_item_image: data.whoWeAreServices?.whoWeAreItemImage,
+                },
+                who_we_are_migrants: {
+                    who_we_are_item_title: data.whoWeAreMigrants?.whoWeAreItemTitle,
+                    who_we_are_item_unit: data.whoWeAreMigrants?.whoWeAreItemUnit,
+                    who_we_are_item_image: data.whoWeAreMigrants?.whoWeAreItemImage,
+                },
+                who_we_are_saved: {
+                    who_we_are_item_title: data.whoWeAreSaved?.whoWeAreItemTitle,
+                    who_we_are_item_unit: data.whoWeAreSaved?.whoWeAreItemUnit,
+                    who_we_are_item_image: data.whoWeAreSaved?.whoWeAreItemImage,
+                },
+                who_we_are_days: {
+                    who_we_are_item_title: data.whoWeAreDays?.whoWeAreItemTitle,
+                    who_we_are_item_unit: data.whoWeAreDays?.whoWeAreItemUnit,
+                    who_we_are_item_image: data.whoWeAreDays?.whoWeAreItemImage,
+                },
+                who_we_are_employers: {
+                    who_we_are_item_title: data.whoWeAreEmployers?.whoWeAreItemTitle,
+                    who_we_are_item_unit: data.whoWeAreEmployers?.whoWeAreItemUnit,
+                    who_we_are_item_image: data.whoWeAreEmployers?.whoWeAreItemImage,
+                },
+            };
 
-            if (res.ok) {
-                alert("Settings saved!");
-                form.reset();
-                setImagePreviews({});
-            } else {
-                alert("Failed to save settings.");
-            }
+            console.log(body);
+            
+
+
+            // const res = await fetch("/api/site-settings", {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(body),
+            // });
+
+            // if (res.ok) {
+            //     alert("Settings saved!");
+            //     form.reset();
+            //     setImagePreviews({});
+            // } else {
+            //     alert("Failed to save settings.");
+            // }
         } catch (error) {
             console.error(error);
             alert("Something went wrong.");
@@ -183,7 +224,7 @@ const WhoWeAreComponent = () => {
                             name="whoWeAreTitle"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Title</FormLabel>
+                                    <FormLabel className="text-xl">Main Title</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Enter main title" {...field} />
                                     </FormControl>
@@ -195,8 +236,8 @@ const WhoWeAreComponent = () => {
                         {/* Dynamic Items */}
                         {renderWhoWeAreItem("whoWeAreServices", "Services")}
                         {renderWhoWeAreItem("whoWeAreMigrants", "Migrants")}
-                        {renderWhoWeAreItem("whoWeAreSaved", "Lives Saved")}
-                        {renderWhoWeAreItem("whoWeAreDays", "Working Days")}
+                        {renderWhoWeAreItem("whoWeAreSaved", "Saved")}
+                        {renderWhoWeAreItem("whoWeAreDays", "Days")}
                         {renderWhoWeAreItem("whoWeAreEmployers", "Employers")}
 
                         <FormField
@@ -204,7 +245,7 @@ const WhoWeAreComponent = () => {
                             name="whoWeAreDescription"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Description</FormLabel>
+                                    <FormLabel className="text-xl">Description</FormLabel>
                                     <FormControl>
                                         <SunEditor
                                             setContents={field.value}
