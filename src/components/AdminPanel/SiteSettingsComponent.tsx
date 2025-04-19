@@ -8,7 +8,6 @@ import * as z from "zod";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
     Form,
     FormControl,
@@ -24,11 +23,15 @@ import "suneditor/dist/css/suneditor.min.css";
 // Schema with Zod
 const formSchema = z.object({
     title: z.string().min(1, "Title is required"),
-    favicon: z.any().optional(),
-    logo: z.any().optional(),
-    aboutUs: z.string().optional(),
-    returnPolicy: z.string().optional(),
-    refundPolicy: z.string().optional(),
+    favicon: z.any().refine(val => val !== undefined && val !== null, {
+        message: "Favicon is required",
+    }),
+    logo: z.any().refine(val => val !== undefined && val !== null, {
+        message: "Logo is required",
+    }),
+    // aboutUs: z.string().optional(),
+    // returnPolicy: z.string().optional(),
+    // refundPolicy: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -38,9 +41,9 @@ const SiteSettingsComponent = () => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
-            aboutUs: "",
-            returnPolicy: "",
-            refundPolicy: "",
+            // aboutUs: "",
+            // returnPolicy: "",
+            // refundPolicy: "",
         },
     });
 
@@ -71,7 +74,7 @@ const SiteSettingsComponent = () => {
             };
 
             console.log(body);
-            
+
 
             const res = await fetch("/api/site-settings", {
                 method: "POST",
@@ -129,12 +132,23 @@ const SiteSettingsComponent = () => {
                                         accept="image/*"
                                         onChange={(e) => {
                                             form.setValue("favicon", e.target.files?.[0]);
+                                            // Clear error message if a valid file is selected
+                                            if (e.target.files?.[0]) {
+                                                form.clearErrors("favicon");
+                                            }
                                             handleImagePreview(e, setFaviconPreview);
                                         }}
                                     />
                                 </FormControl>
                                 {faviconPreview && (
                                     <img src={faviconPreview} alt="Favicon Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded object-contain" />
+                                )}
+
+                                {/* Manual error message display */}
+                                {form.formState.errors.favicon && (
+                                    <p className="text-sm text-destructive">
+                                        {form.formState.errors.favicon.message as string}
+                                    </p>
                                 )}
                             </FormItem>
 
@@ -146,6 +160,9 @@ const SiteSettingsComponent = () => {
                                         accept="image/*"
                                         onChange={(e) => {
                                             form.setValue("logo", e.target.files?.[0]);
+                                            if (e.target.files?.[0]) {
+                                                form.clearErrors("logo");
+                                            }
                                             handleImagePreview(e, setLogoPreview);
                                         }}
                                     />
@@ -153,11 +170,19 @@ const SiteSettingsComponent = () => {
                                 {logoPreview && (
                                     <img src={logoPreview} alt="Logo Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded object-contain" />
                                 )}
+
+                                {/* Manual error message display */}
+                                {form.formState.errors.logo && (
+                                    <p className="text-sm text-destructive">
+                                        {form.formState.errors.logo.message as string}
+                                    </p>
+                                )}
+
                             </FormItem>
                         </div>
 
                         {/* About Us */}
-                        <FormField
+                        {/* <FormField
                             control={form.control}
                             name="aboutUs"
                             render={({ field }) => (
@@ -173,10 +198,10 @@ const SiteSettingsComponent = () => {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
+                        /> */}
 
                         {/* Return Policy */}
-                        <FormField
+                        {/* <FormField
                             control={form.control}
                             name="returnPolicy"
                             render={({ field }) => (
@@ -192,10 +217,10 @@ const SiteSettingsComponent = () => {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
+                        /> */}
 
                         {/* Refund Policy */}
-                        <FormField
+                        {/* <FormField
                             control={form.control}
                             name="refundPolicy"
                             render={({ field }) => (
@@ -211,7 +236,7 @@ const SiteSettingsComponent = () => {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
+                        /> */}
 
                         {/* Submit */}
                         <div>
