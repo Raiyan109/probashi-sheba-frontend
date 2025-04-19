@@ -214,6 +214,18 @@ const SiteSettingsComponent = () => {
                                             setContents={field.value}
                                             onChange={(content) => field.onChange(content)}
                                             height="200px"
+                                            setOptions={{
+                                                buttonList: [
+                                                  ['undo', 'redo'],
+                                                  ['formatBlock'],
+                                                  ['bold', 'underline', 'italic', 'strike'],
+                                                  ['fontColor', 'hiliteColor'],
+                                                  ['align', 'list', 'indent'],
+                                                  ['link'],
+                                                  ['removeFormat'],
+                                                  ['preview', 'codeView', 'fullScreen']
+                                                ],
+                                              }}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -233,6 +245,18 @@ const SiteSettingsComponent = () => {
                                             setContents={field.value}
                                             onChange={(content) => field.onChange(content)}
                                             height="200px"
+                                            setOptions={{
+                                                buttonList: [
+                                                    ['undo', 'redo'],
+                                                    ['formatBlock'],
+                                                    ['bold', 'underline', 'italic', 'strike'],
+                                                    ['fontColor', 'hiliteColor'],
+                                                    ['align', 'list', 'indent'],
+                                                    ['link'],
+                                                    ['removeFormat'],
+                                                    ['preview', 'codeView', 'fullScreen']
+                                                ],
+                                            }}
                                         />
                                     </FormControl>
                                     <FormMessage />
