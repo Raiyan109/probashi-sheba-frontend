@@ -34,11 +34,6 @@ const items = [
         url: "/admin/whoWeAre",
         icon: CircleHelp,
     },
-    {
-        title: "Calendar",
-        url: "#",
-        icon: Calendar,
-    },
 ]
 
 const DashboardSidebar = () => {
@@ -51,7 +46,7 @@ const DashboardSidebar = () => {
                 <SidebarHeader />
                 <SidebarContent>
                     <SidebarGroup>
-                        <Link href={`/`}>
+                        <Link href={`/admin`}>
                             <SidebarGroupLabel className='flex gap-2 items-center justify-center'>
                                 <ArrowUpCircleIcon className="!h-6 !w-6 text-black" />
                                 <span className="text-xl font-semibold text-black">Probashi Sheba</span>
@@ -68,8 +63,8 @@ const DashboardSidebar = () => {
                                             <SidebarMenuButton asChild={false}
                                                 className={`my-1 py-5
                                                 ${isActive
-                                                        ? 'bg-slate-800 text-white hover:bg-slate-800 hover:text-white'
-                                                        : 'hover:bg-slate-200 dark:hover:bg-slate-800'
+                                                        ? 'bg-darkGreen text-white hover:bg-darkGreen hover:text-lightGreen'
+                                                        : 'hover:bg-darkGreen hover:text-lightGreen dark:hover:bg-darkGreen'
                                                     }`}
                                             >
                                                 <Link href={item.url} className="w-full flex items-center gap-2">
