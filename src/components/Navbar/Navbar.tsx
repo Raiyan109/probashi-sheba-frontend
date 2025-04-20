@@ -13,7 +13,7 @@ const Navbar = () => {
     return (
         <div>
             {/* Navbar */}
-            <header className="bg-white shadow-md sticky top-0 z-50 flex">
+            <header className="bg-white shadow-md fixed w-full top-0 z-50 flex">
                 <div className="container mx-auto px-4 py-4 flex items-center">
                     <div className="flex items-center space-x-2">
                         <Image src="https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp" alt="Logo" width={40} height={40} className='rounded-full' />
