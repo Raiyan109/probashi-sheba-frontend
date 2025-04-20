@@ -6,27 +6,43 @@ import { ReactNode } from "react";
 
 const WebsiteLayout = ({ children }: { children: ReactNode }) => {
     return (
-        <>
-            <div className="">
-                <div className="hidden md:hidden lg:block">
-                    <Navbar />
-                    <div className="">{children}</div>
-                </div>
-                <div className="block md:block lg:hidden">
-                    <WebsiteSidebarProvider>
-                        <WebsiteSidebar />
-                        <div className="flex justify-center">
-                            <WebsiteSidebarTrigger />
-                        </div>
-                        <div>
-                            <div>
-                                {children}
-                            </div>
-                        </div>
-                    </WebsiteSidebarProvider>
-                </div>
+        <div className="min-h-screen">
+            {/* Desktop View (lg and up) */}
+            <div className="hidden lg:block">
+                <Navbar />
+                <div>{children}</div>
             </div>
-        </>
+
+            {/* Mobile/Tablet View (md and below) */}
+            <div className="block lg:hidden overflow-x-hidden">
+                <WebsiteSidebarProvider>
+                    <WebsiteSidebar />
+
+                    {/* Fixed header with perfect alignment */}
+                    <header className="fixed top-0 w-full z-40 bg-white h-14 flex items-center justify-between px-4 border-b">
+                       
+                        <div className="flex items-center">
+                            <img
+                                src="/logo.png"
+                                alt="Logo"
+                                className="h-7 w-auto"
+                            />
+                        </div>
+
+
+                        {/* sidebar trigger */}
+                        <WebsiteSidebarTrigger />
+                    </header>
+
+                    {/* Main content */}
+                    <main className="w-full">
+                        <div>
+                            {children}
+                        </div>
+                    </main>
+                </WebsiteSidebarProvider>
+            </div>
+        </div>
     );
 };
 
