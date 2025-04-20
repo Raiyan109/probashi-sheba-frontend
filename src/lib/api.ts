@@ -7,7 +7,7 @@ export async function getBMET() {
 
         return await res.json()
     } catch (error) {
-        console.error("Error fetching categories:", error)
+        console.error("Error fetching BMET:", error)
         console.info("Falling back to mock data")
     }
 }
@@ -15,18 +15,32 @@ export async function getBMET() {
 export async function loginAdmin(data: {
     admin_phone: string;
     admin_password: string;
-  }) {
+}) {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const res = await fetch(`${baseUrl}/admin/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
     });
-  
+
     const response = await res.json();
-  
+
     if (!res.ok) throw new Error(response.message || "Login failed");
-  
+
     return response;
-  }
-  
+}
+
+// GET Faq
+export async function getFaq() {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        const res = await fetch(`${baseUrl}/faq`, {
+            next: { revalidate: 60 },
+        })
+
+        return await res.json()
+    } catch (error) {
+        console.error("Error fetching faq:", error)
+        console.info("Falling back to mock data")
+    }
+}

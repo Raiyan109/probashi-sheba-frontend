@@ -1,23 +1,27 @@
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+
+import { FaqTable } from "@/components/AdminPanel/Faq/FaqTable"
+import { getFaq } from "@/lib/api"
+import { getQueryClient } from "@/lib/get-query-client"
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import Link from "next/link"
 
 
-const FaqPage = () => {
+const FaqPage = async () => {
+    const queryClient = getQueryClient()
+
+    await queryClient.prefetchQuery({
+        queryKey: ['faq'],
+        queryFn: getFaq
+    })
     return (
-        <div>
+        <HydrationBoundary state={dehydrate(queryClient)}>
             <div className="flex items-center justify-between mb-5">
                 <h1>FAQ</h1>
                 <Link href={'/admin/faq/add-faq'} className="addButton">Add FAQ</Link>
             </div>
-            <Table>
+
+            <FaqTable />
+            {/* <Table>
                 <TableCaption>A list of your recent invoices.</TableCaption>
                 <TableHeader>
                     <TableRow>
@@ -36,9 +40,9 @@ const FaqPage = () => {
                         <TableCell className="text-right">$250.00</TableCell>
                     </TableRow>
                 </TableBody>
-            </Table>
+            </Table> */}
 
-        </div>
+        </HydrationBoundary>
     )
 }
 

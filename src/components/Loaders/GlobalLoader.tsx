@@ -3,7 +3,7 @@
 const GlobalLoader = () => {
     return (
 
-        <div className="flex flex-row gap-2">
+        <div className="flex items-center justify-center h-screen flex-row gap-2">
             <div
                 style={{
                     backgroundImage:
