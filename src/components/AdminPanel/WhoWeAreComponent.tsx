@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
@@ -19,10 +19,13 @@ import {
 
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
+import Image from "next/image";
 
 // Item schema
 const whoWeAreItemSchema = z.object({
-    whoWeAreItemImage: z.any().optional(),
+    whoWeAreItemImage: z.union([z.string(), z.instanceof(File)]).optional(),
+
+    // whoWeAreItemImage: z.string().optional(),
     whoWeAreItemTitle: z.string().min(1, "Title is required"),
     whoWeAreItemUnit: z.number().optional(),
 });
@@ -57,33 +60,60 @@ const WhoWeAreComponent = () => {
     const [imagePreviews, setImagePreviews] = React.useState<Record<string, string | null>>({});
     const [loading, setLoading] = React.useState(false);
 
-    const handleImagePreview = (e: React.ChangeEvent<HTMLInputElement>, fieldName: keyof FormData) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            form.setValue(`${fieldName}.whoWeAreItemImage` as any, file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImagePreviews((prev) => ({
-                    ...prev,
-                    [fieldName]: reader.result as string,
-                }));
-            };
-            reader.readAsDataURL(file);
-        }
-    };
+    const handleImagePreview = <
+    T extends keyof Pick<
+        FormData,
+        | "whoWeAreServices"
+        | "whoWeAreMigrants"
+        | "whoWeAreSaved"
+        | "whoWeAreDays"
+        | "whoWeAreEmployers"
+    >
+>(
+    e: React.ChangeEvent<HTMLInputElement>,
+    fieldName: T
+) => {
+    const file = e.target.files?.[0];
+    if (file) {
+        // Type-safe path
+        form.setValue(`${fieldName}.whoWeAreItemImage` as `${T}.whoWeAreItemImage`, file as any);
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagePreviews((prev) => ({
+                ...prev,
+                [fieldName]: reader.result as string,
+            }));
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
 
     console.log(imagePreviews);
-    
-    
-    
 
-    const renderWhoWeAreItem = (fieldName: keyof FormData, label: string) => (
+
+
+
+    const renderWhoWeAreItem = <
+        T extends keyof Pick<
+            FormData,
+            | "whoWeAreServices"
+            | "whoWeAreMigrants"
+            | "whoWeAreSaved"
+            | "whoWeAreDays"
+            | "whoWeAreEmployers"
+        >
+    >(
+        fieldName: T,
+        label: string
+    ) => (
         <div className="space-y-4 border rounded p-4">
             <h3 className="text-xl font-semibold">{label}</h3>
 
             <FormField
                 control={form.control}
-                name={`${fieldName}.whoWeAreItemTitle` as any}
+                name={`${fieldName}.whoWeAreItemTitle` as const}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Title</FormLabel>
@@ -97,7 +127,7 @@ const WhoWeAreComponent = () => {
 
             <FormField
                 control={form.control}
-                name={`${fieldName}.whoWeAreItemUnit` as any}
+                name={`${fieldName}.whoWeAreItemUnit` as const}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Unit</FormLabel>
@@ -119,7 +149,9 @@ const WhoWeAreComponent = () => {
                     />
                 </FormControl>
                 {imagePreviews[fieldName] && (
-                    <img
+                    <Image
+                        width={100}
+                        height={100}
                         src={imagePreviews[fieldName] ?? ""}
                         alt="Preview"
                         className="w-32 h-32 object-contain mt-1 rounded"
@@ -128,6 +160,7 @@ const WhoWeAreComponent = () => {
             </FormItem>
         </div>
     );
+
 
     const onSubmit = async (data: FormData) => {
         setLoading(true);
@@ -154,7 +187,7 @@ const WhoWeAreComponent = () => {
             //         formData.append(`${key}[image]`, data[key].whoWeAreItemImage);
             //     }
             // }
-            
+
 
             const body = {
                 who_we_are_title: data.whoWeAreTitle,
@@ -187,7 +220,7 @@ const WhoWeAreComponent = () => {
             };
 
             console.log(body);
-            
+
 
 
             // const res = await fetch("/api/site-settings", {
@@ -253,16 +286,16 @@ const WhoWeAreComponent = () => {
                                             height="200px"
                                             setOptions={{
                                                 buttonList: [
-                                                  ['undo', 'redo'],
-                                                  ['formatBlock'],
-                                                  ['bold', 'underline', 'italic', 'strike'],
-                                                  ['fontColor', 'hiliteColor'],
-                                                  ['align', 'list', 'indent'],
-                                                  ['link'],
-                                                  ['removeFormat'],
-                                                  ['preview', 'codeView', 'fullScreen']
+                                                    ['undo', 'redo'],
+                                                    ['formatBlock'],
+                                                    ['bold', 'underline', 'italic', 'strike'],
+                                                    ['fontColor', 'hiliteColor'],
+                                                    ['align', 'list', 'indent'],
+                                                    ['link'],
+                                                    ['removeFormat'],
+                                                    ['preview', 'codeView', 'fullScreen']
                                                 ],
-                                              }}
+                                            }}
                                         />
                                     </FormControl>
                                     <FormMessage />

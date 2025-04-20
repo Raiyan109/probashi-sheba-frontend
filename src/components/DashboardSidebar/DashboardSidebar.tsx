@@ -13,7 +13,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { ArrowUpCircleIcon, Calendar, ChevronUp, CircleHelp, Home, Inbox, Settings, User2 } from 'lucide-react';
+import { ArrowUpCircleIcon, ChevronUp, Home, KeyRound, ListChecks, MessageCircleQuestionIcon, ProjectorIcon, Settings, Star, User2, UsersRound } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
@@ -33,7 +33,32 @@ const items = [
     {
         title: "About",
         url: "/admin/whoWeAre",
-        icon: CircleHelp,
+        icon: UsersRound,
+    },
+    {
+        title: "Testimonial",
+        url: "/admin/testimonial",
+        icon: Star,
+    },
+    {
+        title: "Banner",
+        url: "/admin/banner",
+        icon: ProjectorIcon,
+    },
+    {
+        title: "Key Impacts",
+        url: "/admin/keyImpacts",
+        icon: KeyRound,
+    },
+    {
+        title: "Checklist",
+        url: "/admin/checklist",
+        icon: ListChecks,
+    },
+    {
+        title: "FAQ",
+        url: "/admin/faq",
+        icon: MessageCircleQuestionIcon,
     },
 ]
 
