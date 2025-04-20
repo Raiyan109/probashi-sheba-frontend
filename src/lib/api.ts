@@ -44,3 +44,33 @@ export async function getFaq() {
         console.info("Falling back to mock data")
     }
 }
+
+// GET Checklist
+export async function getChecklist() {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        const res = await fetch(`${baseUrl}/checklist`, {
+            next: { revalidate: 60 },
+        })
+
+        return await res.json()
+    } catch (error) {
+        console.error("Error fetching checklist:", error)
+        console.info("Falling back to mock data")
+    }
+}
+
+// GET Banner
+export async function getBanner() {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        const res = await fetch(`${baseUrl}/banner`, {
+            next: { revalidate: 60 },
+        })
+
+        return await res.json()
+    } catch (error) {
+        console.error("Error fetching banner:", error)
+        console.info("Falling back to mock data")
+    }
+}
