@@ -75,3 +75,34 @@ export interface IBMETRegistration {
     supporting_documents: ISupportingDocuments[];
     //document_name: string[];
 }
+
+export type IBanner = {
+    _id: string;
+    banner_title_english: string;
+    banner_title_bangla: string;
+    banner_description_english: string;
+    banner_description_bangla: string;
+    banner_image?: string;
+    banner_image_key?: string;
+    banner_status: "active" | "in-active";
+    banner_path?: string;
+    banner_playstore_path?: string;
+    banner_applestore_path?: string;
+    banner_serial: number;
+    banner_publisher_id?: string;
+    banner_updated_by?: string;
+};
+
+
+
+export interface ITestimonial {
+    _id:string;
+    testimonial_name?: string;
+    testimonial_image?: string;
+    testimonial_image_key?: string;
+    testimonial_occupation?: string;
+    testimonial_comment?: string;
+    testimonial_status?: string;
+    testimonial_serial?: number;
+    testimonial_rating?: number;
+}

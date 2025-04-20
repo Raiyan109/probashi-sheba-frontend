@@ -1,18 +1,27 @@
+import { TestimonialTable } from "@/components/AdminPanel/Testimonial/TestimonialTable"
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { getTestimonial } from "@/lib/api"
+import { getQueryClient } from "@/lib/get-query-client"
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import Link from "next/link"
 
 
-const TestimonialPage = () => {
+const TestimonialPage = async () => {
+    const queryClient = getQueryClient()
+
+    await queryClient.prefetchQuery({
+        queryKey: ['testimonial'],
+        queryFn: getTestimonial
+    })
     return (
-        <div>
+        <HydrationBoundary state={dehydrate(queryClient)}>
             <div className="flex items-center justify-between mb-5">
                 <h1>Testimonial</h1>
                 <Link href={'/admin/testimonial/add-testimonial'} className="addButton">Add Testimonial</Link>
@@ -20,7 +29,7 @@ const TestimonialPage = () => {
 
             {/* Table */}
             <div className="overflow-x-auto max-w-[320px] sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-full mx-auto shadow-xl">
-                <Table>
+                {/* <Table>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">Image</TableHead>
@@ -42,10 +51,11 @@ const TestimonialPage = () => {
                             <TableCell className="text-right">$250.00</TableCell>
                         </TableRow>
                     </TableBody>
-                </Table>
+                </Table> */}
+                <TestimonialTable />
             </div>
 
-        </div>
+        </HydrationBoundary>
     )
 }
 
