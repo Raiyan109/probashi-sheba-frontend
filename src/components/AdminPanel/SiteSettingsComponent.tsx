@@ -19,6 +19,7 @@ import {
 
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
+import Image from "next/image";
 
 // Schema with Zod
 const formSchema = z.object({
@@ -143,7 +144,12 @@ const SiteSettingsComponent = () => {
                                     />
                                 </FormControl>
                                 {faviconPreview && (
-                                    <img src={faviconPreview} alt="Favicon Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded object-contain" />
+                                    <Image
+                                        width={100}
+                                        height={100}
+                                        src={faviconPreview}
+                                        alt="Favicon Preview"
+                                        className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded object-contain" />
                                 )}
 
                                 {/* Manual error message display */}
@@ -170,7 +176,10 @@ const SiteSettingsComponent = () => {
                                     />
                                 </FormControl>
                                 {logoPreview && (
-                                    <img src={logoPreview} alt="Logo Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded object-contain" />
+                                    <Image
+                                        width={100}
+                                        height={100}
+                                        src={logoPreview} alt="Logo Preview" className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded object-contain" />
                                 )}
 
                                 {/* Manual error message display */}
@@ -216,16 +225,16 @@ const SiteSettingsComponent = () => {
                                             height="200px"
                                             setOptions={{
                                                 buttonList: [
-                                                  ['undo', 'redo'],
-                                                  ['formatBlock'],
-                                                  ['bold', 'underline', 'italic', 'strike'],
-                                                  ['fontColor', 'hiliteColor'],
-                                                  ['align', 'list', 'indent'],
-                                                  ['link'],
-                                                  ['removeFormat'],
-                                                  ['preview', 'codeView', 'fullScreen']
+                                                    ['undo', 'redo'],
+                                                    ['formatBlock'],
+                                                    ['bold', 'underline', 'italic', 'strike'],
+                                                    ['fontColor', 'hiliteColor'],
+                                                    ['align', 'list', 'indent'],
+                                                    ['link'],
+                                                    ['removeFormat'],
+                                                    ['preview', 'codeView', 'fullScreen']
                                                 ],
-                                              }}
+                                            }}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -267,7 +276,7 @@ const SiteSettingsComponent = () => {
                         {/* Submit */}
                         <div>
                             <Button type="submit" disabled={loading}>
-                                {loading ? "Saving..." : "Save Settings"}
+                                {loading ? "Saving..." : "Save"}
                             </Button>
                         </div>
                     </form>

@@ -1,12 +1,11 @@
 import SiteSettingsComponent from '@/components/AdminPanel/SiteSettingsComponent';
-import React from 'react';
 
-const SiteSettings = () => {
+const SiteSettingsPage = () => {
     return (
         <div>
-            <SiteSettingsComponent/>
+            <SiteSettingsComponent />
         </div>
     );
 };
 
-export default SiteSettings;
+export default SiteSettingsPage;

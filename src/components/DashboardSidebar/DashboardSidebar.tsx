@@ -13,9 +13,10 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { ArrowUpCircleIcon, Calendar, CircleHelp, Home, Inbox, Settings } from 'lucide-react';
+import { ArrowUpCircleIcon, ChevronUp, Home, KeyRound, ListChecks, MessageCircleQuestionIcon, ProjectorIcon, Settings, Star, User2, UsersRound } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
 // Menu items.
 const items = [
@@ -30,14 +31,34 @@ const items = [
         icon: Settings,
     },
     {
-        title: "Who We Are",
+        title: "About",
         url: "/admin/whoWeAre",
-        icon: CircleHelp,
+        icon: UsersRound,
     },
     {
-        title: "Calendar",
-        url: "#",
-        icon: Calendar,
+        title: "Testimonial",
+        url: "/admin/testimonial",
+        icon: Star,
+    },
+    {
+        title: "Banner",
+        url: "/admin/banner",
+        icon: ProjectorIcon,
+    },
+    {
+        title: "Key Impacts",
+        url: "/admin/keyImpacts",
+        icon: KeyRound,
+    },
+    {
+        title: "Checklist",
+        url: "/admin/checklist",
+        icon: ListChecks,
+    },
+    {
+        title: "FAQ",
+        url: "/admin/faq",
+        icon: MessageCircleQuestionIcon,
     },
 ]
 
@@ -51,7 +72,7 @@ const DashboardSidebar = () => {
                 <SidebarHeader />
                 <SidebarContent>
                     <SidebarGroup>
-                        <Link href={`/`}>
+                        <Link href={`/admin`}>
                             <SidebarGroupLabel className='flex gap-2 items-center justify-center'>
                                 <ArrowUpCircleIcon className="!h-6 !w-6 text-black" />
                                 <span className="text-xl font-semibold text-black">Probashi Sheba</span>
@@ -61,15 +82,15 @@ const DashboardSidebar = () => {
                         <SidebarGroupContent>
                             <SidebarMenu>
                                 {items.map((item) => {
-                                    const isActive = pathname === item.url;
+                                    const isActive = pathname.includes(item.url);
 
                                     return (
                                         <SidebarMenuItem key={item.title}>
                                             <SidebarMenuButton asChild={false}
                                                 className={`my-1 py-5
                                                 ${isActive
-                                                        ? 'bg-slate-800 text-white hover:bg-slate-800 hover:text-white'
-                                                        : 'hover:bg-slate-200 dark:hover:bg-slate-800'
+                                                        ? 'bg-darkGreen text-white hover:bg-darkGreen hover:text-lightGreen'
+                                                        : 'hover:bg-darkGreen hover:text-lightGreen dark:hover:bg-darkGreen'
                                                     }`}
                                             >
                                                 <Link href={item.url} className="w-full flex items-center gap-2">
@@ -81,10 +102,39 @@ const DashboardSidebar = () => {
                                     )
                                 })}
                             </SidebarMenu>
+
+                            {/* <div className='mb-auto'>
+                                <SidebarMenu >
+                                    Logout
+                                </SidebarMenu>
+                            </div> */}
                         </SidebarGroupContent>
                     </SidebarGroup >
                 </SidebarContent>
-                <SidebarFooter />
+                {/* Footer */}
+                <SidebarFooter className='mb-2'>
+                    <SidebarMenu>
+                        <SidebarMenuItem>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <SidebarMenuButton>
+                                        <User2 /> Username
+                                        <ChevronUp className="ml-auto" />
+                                    </SidebarMenuButton>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent
+                                    side="top"
+                                    className="w-[--radix-popper-anchor-width]"
+                                >
+
+                                    <DropdownMenuItem>
+                                        <span>Sign out</span>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarFooter>
             </Sidebar>
         </div>
     );
