@@ -13,7 +13,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { ArrowUpCircleIcon, ChevronUp, Home, KeyRound, ListChecks, MessageCircleQuestionIcon, ProjectorIcon, Settings, Star, User2, UsersRound } from 'lucide-react';
+import { ArrowUpCircleIcon, ChevronUp, FileSliders, Home, KeyRound, ListChecks, MessageCircleQuestionIcon, ProjectorIcon, Settings, Star, User2, UsersRound } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
@@ -24,6 +24,11 @@ const items = [
         title: "Home",
         url: "/admin",
         icon: Home,
+    },
+    {
+        title: "BMET Registrations",
+        url: "/admin/bmet-registrations",
+        icon: FileSliders,
     },
     {
         title: "Website Settings",
