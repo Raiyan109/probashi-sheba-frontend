@@ -6,28 +6,28 @@ import Image from "next/image"
 
 export const MigrantWorkersSectionComponent = () => {
     return (
-        <div>
+        <div className="bg-cream pt-10 pb-32">
             <div className="flex justify-around items-center">
                 <div>
                     <Tabs defaultValue="government" className="w-full">
-                        <TabsList className="flex flex-wrap gap-2 bg-muted p-2 rounded-xl">
-                            <TabsTrigger value="government" className="flex items-center gap-2">
+                        <TabsList className="flex flex-wrap gap-2 rounded-xl">
+                            <TabsTrigger value="government" className="flex items-center gap-2 cursor-pointer relative px-3 py-2 text-sm font-medium border-none shadow-none transition-all duration-200 data-[state=active]:text-foreground data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-[2px] data-[state=active]:after:bg-darkGreen">
                                 <Image src="/gov-icon.png" alt="Gov" className="w-5 h-5" width={20} height={20} />
                                 Government services
                             </TabsTrigger>
-                            <TabsTrigger value="brac" className="flex items-center gap-2">
+                            <TabsTrigger value="brac" className="flex items-center gap-2 cursor-pointer relative px-3 py-2 text-sm font-medium border-none shadow-none transition-all duration-200 data-[state=active]:text-foreground data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-[2px] data-[state=active]:after:bg-darkGreen">
                                 <Image src="/brac-icon.png" alt="BRAC" className="w-5 h-5" width={20} height={20} />
                                 BRAC Services
                             </TabsTrigger>
-                            <TabsTrigger value="job" className="flex items-center gap-2">
+                            <TabsTrigger value="job" className="flex items-center gap-2 cursor-pointer">
                                 <Image src="/job-icon.png" alt="Job" className="w-5 h-5" width={20} height={20} />
                                 Job & training
                             </TabsTrigger>
-                            <TabsTrigger value="career" className="flex items-center gap-2">
+                            <TabsTrigger value="career" className="flex items-center gap-2 cursor-pointer">
                                 <Image src="/career-icon.png" alt="Career" className="w-5 h-5" width={20} height={20} />
                                 Career Consultancy
                             </TabsTrigger>
-                            <TabsTrigger value="lifestyle" className="flex items-center gap-2">
+                            <TabsTrigger value="lifestyle" className="flex items-center gap-2 cursor-pointer">
                                 <Image src="/lifestyle-icon.png" alt="Lifestyle" className="w-5 h-5" width={20} height={20} />
                                 Lifestyle service
                             </TabsTrigger>
