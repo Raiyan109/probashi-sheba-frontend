@@ -1,17 +1,8 @@
 import { BMETTAble } from "@/components/AdminPanel/BMETRegistration/BMETTable"
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 import { getBMET } from "@/lib/api"
 import { getQueryClient } from "@/lib/get-query-client"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import Link from "next/link"
+
 
 
 export default async function BMETRegistrationsPage() {
