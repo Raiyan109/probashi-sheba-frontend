@@ -17,6 +17,7 @@ import { ArrowUpCircleIcon, ChevronUp, FileSliders, Home, KeyRound, ListChecks, 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { useLogout } from '@/hooks/useLoginMutation';
 
 // Menu items.
 const items = [
@@ -68,7 +69,7 @@ const items = [
 ]
 
 const DashboardSidebar = () => {
-
+    const { mutate: logout, isPending } = useLogout();
     const pathname = usePathname();
 
     return (
@@ -137,8 +138,11 @@ const DashboardSidebar = () => {
                                     className="w-[--radix-popper-anchor-width]"
                                 >
 
-                                    <DropdownMenuItem>
-                                        <span>Sign out</span>
+                                    <DropdownMenuItem
+                                        onClick={() => logout()}
+                                        disabled={isPending}
+                                        className="bg-red-600 text-white px-4 py-2 rounded-md">
+                                        <span>{isPending ? "Logging out..." : "Logout"}</span>
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
