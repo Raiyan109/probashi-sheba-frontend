@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar/Navbar";
 import { WebsiteSidebarProvider, WebsiteSidebarTrigger } from "@/components/WebsiteSidebar/WebsiteSidebar";
 import WebsiteSidebarItem from "@/components/WebsiteSidebarItem/WebsiteSidebarItem";
+import Image from "next/image";
 import { ReactNode } from "react";
 
 const WebsiteLayout = ({ children }: { children: ReactNode }) => {
@@ -21,10 +22,12 @@ const WebsiteLayout = ({ children }: { children: ReactNode }) => {
                     <header className="fixed top-0 w-full z-40 bg-white h-14 flex items-center justify-between px-4 border-b">
                        
                         <div className="flex items-center">
-                            <img
+                            <Image
                                 src="/logo.png"
                                 alt="Logo"
                                 className="h-7 w-auto"
+                                width={28}
+                                height={28}
                             />
                         </div>
 
