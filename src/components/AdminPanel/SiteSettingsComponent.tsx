@@ -267,7 +267,7 @@ const SiteSettingsComponent = () => {
                         {/* Submit */}
                         <div>
                             <Button type="submit" disabled={loading}>
-                                {loading ? "Saving..." : "Save Settings"}
+                                {loading ? "Saving..." : "Save"}
                             </Button>
                         </div>
                     </form>

@@ -13,9 +13,10 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { ArrowUpCircleIcon, Calendar, CircleHelp, Home, Inbox, Settings } from 'lucide-react';
+import { ArrowUpCircleIcon, Calendar, ChevronUp, CircleHelp, Home, Inbox, Settings, User2 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
 // Menu items.
 const items = [
@@ -30,7 +31,7 @@ const items = [
         icon: Settings,
     },
     {
-        title: "Who We Are",
+        title: "About",
         url: "/admin/whoWeAre",
         icon: CircleHelp,
     },
@@ -76,10 +77,39 @@ const DashboardSidebar = () => {
                                     )
                                 })}
                             </SidebarMenu>
+
+                            {/* <div className='mb-auto'>
+                                <SidebarMenu >
+                                    Logout
+                                </SidebarMenu>
+                            </div> */}
                         </SidebarGroupContent>
                     </SidebarGroup >
                 </SidebarContent>
-                <SidebarFooter />
+                {/* Footer */}
+                <SidebarFooter className='mb-2'>
+                    <SidebarMenu>
+                        <SidebarMenuItem>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <SidebarMenuButton>
+                                        <User2 /> Username
+                                        <ChevronUp className="ml-auto" />
+                                    </SidebarMenuButton>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent
+                                    side="top"
+                                    className="w-[--radix-popper-anchor-width]"
+                                >
+
+                                    <DropdownMenuItem>
+                                        <span>Sign out</span>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarFooter>
             </Sidebar>
         </div>
     );
