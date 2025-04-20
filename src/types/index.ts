@@ -77,7 +77,7 @@ export interface IBMETRegistration {
 }
 
 export type IBanner = {
-    _id:string;
+    _id: string;
     banner_title_english: string;
     banner_title_bangla: string;
     banner_description_english: string;
@@ -91,4 +91,18 @@ export type IBanner = {
     banner_serial: number;
     banner_publisher_id?: string;
     banner_updated_by?: string;
-  };
+};
+
+
+
+export interface ITestimonial {
+    _id:string;
+    testimonial_name?: string;
+    testimonial_image?: string;
+    testimonial_image_key?: string;
+    testimonial_occupation?: string;
+    testimonial_comment?: string;
+    testimonial_status?: string;
+    testimonial_serial?: number;
+    testimonial_rating?: number;
+}

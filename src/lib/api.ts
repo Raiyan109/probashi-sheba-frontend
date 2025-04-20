@@ -74,3 +74,18 @@ export async function getBanner() {
         console.info("Falling back to mock data")
     }
 }
+
+// GET Testimonial
+export async function getTestimonial() {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        const res = await fetch(`${baseUrl}/testimonial`, {
+            next: { revalidate: 60 },
+        })
+
+        return await res.json()
+    } catch (error) {
+        console.error("Error fetching testimonial:", error)
+        console.info("Falling back to mock data")
+    }
+}
