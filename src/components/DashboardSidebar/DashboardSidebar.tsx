@@ -82,7 +82,12 @@ const DashboardSidebar = () => {
                         <SidebarGroupContent>
                             <SidebarMenu>
                                 {items.map((item) => {
-                                    const isActive = pathname.includes(item.url);
+                                    const isActive = pathname === item.url
+
+                                    // const isActive =
+                                    // item.url === '/'
+                                    //     ? pathname === '/'
+                                    //     : pathname.startsWith(`${item.url}/`) || pathname === item.url;
 
                                     return (
                                         <SidebarMenuItem key={item.title}>
