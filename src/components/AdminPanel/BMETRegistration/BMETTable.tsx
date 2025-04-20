@@ -16,7 +16,6 @@ import {
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -38,7 +37,16 @@ import {
 import { useQuery } from "@tanstack/react-query"
 import { getBMET } from "@/lib/api"
 import { IBMETRegistration } from "@/types"
-import { toast } from "sonner"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import Image from "next/image"
+
 
 // const data: Payment[] = [
 //   {
@@ -170,32 +178,45 @@ export const columns: ColumnDef<IBMETRegistration>[] = [
     cell: ({ row }) => {
       const bmetInfo = row.original
       console.log(row);
-
+      const [open, setOpen] = React.useState(false)
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard
-                  .writeText(bmetInfo._id || "")
-                  .then(() => toast("Copied!"))
-                  .catch(() => toast("Clipboard API failed"))
-              }
-            >
-              Copy registration ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal />
+              </Button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => setOpen(true)}>
+                View details
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Registration details of {bmetInfo?.user_name}</DialogTitle>
+              <DialogDescription>
+                <div>
+                  <Image
+                    width={100}
+                    height={100}
+                    src={bmetInfo?.passport_image}
+                    alt="Passport Image"
+                    className="w-96 h-36 md:h-52 lg:h-96 mt-2 rounded object-contain" />
+                </div>
+                <div>
+                  <h1>Passport Verificatin Status</h1>
+                </div>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       )
     },
   },
