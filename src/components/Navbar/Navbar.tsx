@@ -3,11 +3,14 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, QrCode } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 const Navbar = () => {
 
     const [open, setOpen] = useState(false);
+
+    const [lang, setLang] = useState<'en' | 'bn'>('en');
+    
 
 
     return (
@@ -72,9 +75,28 @@ const Navbar = () => {
                         <a href="#" className="hover:text-green-600 p-3 font-bold">Download Cards</a>
                     </nav>
                 </div>
-                <div className="flex items-center mr-24">
-                    <Button variant="ghost" className="text-sm">EN</Button>
-                    <Button variant="ghost" className="text-sm">BN</Button>
+                <div className="flex items-center mr-6 gap-2">
+                    <div>
+                        <Button className='py-4 border rounded-full border-darkGreen bg-white hover:bg-white text-darkGreen text-sm w-[150px] text-left whitespace-normal leading-tight'><QrCode className='!w-6 !h-6'/>Get Probashi Sheba App</Button>
+                    </div>
+                    <div className='border-r-2 border-r-darkGreen h-6 '>
+                    </div>
+                    <div className="flex py-1 bg-white border px-1 rounded-full border-darkGreen overflow-hidden">
+                        <button
+                            onClick={() => setLang('en')}
+                            className={`px-4 py-1 text-sm font-semibold rounded-full cursor-pointer transition-all ${lang === 'en' ? 'bg-[#16827A] text-white' : 'text-[#0F172A]'
+                                }`}
+                        >
+                            EN
+                        </button>
+                        <button
+                            onClick={() => setLang('bn')}
+                            className={`px-4 py-1 text-sm font-semibold rounded-full cursor-pointer transition-all ${lang === 'bn' ? 'bg-[#16827A] text-white' : 'text-[#0F172A]'
+                                }`}
+                        >
+                            বাংলা
+                        </button>
+                    </div>
                 </div>
             </header>
         </div>
