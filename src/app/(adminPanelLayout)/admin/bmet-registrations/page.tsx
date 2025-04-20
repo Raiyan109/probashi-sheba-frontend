@@ -8,12 +8,21 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { getBMET } from "@/lib/api"
+import { getQueryClient } from "@/lib/get-query-client"
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import Link from "next/link"
 
 
-const BMETRegistrations = () => {
+export default async function BMETRegistrationsPage() {
+    const queryClient = getQueryClient()
+
+    await queryClient.prefetchQuery({
+        queryKey: ['bmet'],
+        queryFn: getBMET
+    })
     return (
-        <div>
+        <HydrationBoundary state={dehydrate(queryClient)}>
             <div className="flex items-center justify-between mb-5">
                 <h1>BMET Registrations</h1>
                 {/* <Link href={'/admin/faq/add-faq'} className="addButton">Add FAQ</Link> */}
@@ -46,10 +55,9 @@ const BMETRegistrations = () => {
                 </Table>
             </div> */}
 
-            <BMETTAble/>
+            <BMETTAble />
 
-        </div>
+        </HydrationBoundary>
     )
 }
 
-export default BMETRegistrations
