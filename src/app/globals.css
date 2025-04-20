@@ -125,4 +125,19 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  h1{
+    @apply text-4xl
+  }
+}
+
+@layer components {
+  .addButton {
+    background-color: var(--color-darkGreen);
+    border-radius: 10px;
+    padding: var(--spacing-6);
+    box-shadow: var(--shadow-xl);
+    padding: 5px 15px;
+    color: var(--color-lightGreen);
+  }
 }
