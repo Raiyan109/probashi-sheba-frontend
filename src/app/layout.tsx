@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/lib/providers";
 import { Suspense } from "react";
+import GlobalLoader from "@/components/Loaders/GlobalLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<GlobalLoader />}>
           <Providers>
             {children}
           </Providers>
