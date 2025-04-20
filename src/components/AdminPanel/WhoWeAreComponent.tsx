@@ -251,6 +251,18 @@ const WhoWeAreComponent = () => {
                                             setContents={field.value}
                                             onChange={field.onChange}
                                             height="200px"
+                                            setOptions={{
+                                                buttonList: [
+                                                  ['undo', 'redo'],
+                                                  ['formatBlock'],
+                                                  ['bold', 'underline', 'italic', 'strike'],
+                                                  ['fontColor', 'hiliteColor'],
+                                                  ['align', 'list', 'indent'],
+                                                  ['link'],
+                                                  ['removeFormat'],
+                                                  ['preview', 'codeView', 'fullScreen']
+                                                ],
+                                              }}
                                         />
                                     </FormControl>
                                     <FormMessage />

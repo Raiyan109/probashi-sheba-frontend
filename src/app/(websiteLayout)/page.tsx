@@ -1,8 +1,10 @@
+import WebsiteHomePageComponent from "@/components/Website/WebsiteHomePageComponent";
+
 const WebsiteHomePage = () => {
 
     return (
         <div>
-            Hello, Website
+            <WebsiteHomePageComponent/>
         </div>
     );
 };
