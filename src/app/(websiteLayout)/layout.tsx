@@ -1,7 +1,6 @@
-import DashboardSidebar from "@/components/DashboardSidebar/DashboardSidebar";
 import Navbar from "@/components/Navbar/Navbar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { WebsiteSidebar, WebsiteSidebarProvider, WebsiteSidebarTrigger } from "@/components/WebsiteSidebar/WebsiteSidebar";
+import { WebsiteSidebarProvider, WebsiteSidebarTrigger } from "@/components/WebsiteSidebar/WebsiteSidebar";
+import WebsiteSidebarItem from "@/components/WebsiteSidebarItem/WebsiteSidebarItem";
 import { ReactNode } from "react";
 
 const WebsiteLayout = ({ children }: { children: ReactNode }) => {
@@ -16,7 +15,7 @@ const WebsiteLayout = ({ children }: { children: ReactNode }) => {
             {/* Mobile/Tablet View (md and below) */}
             <div className="block lg:hidden overflow-x-hidden">
                 <WebsiteSidebarProvider>
-                    <WebsiteSidebar />
+                    <WebsiteSidebarItem />
 
                     {/* Fixed header with perfect alignment */}
                     <header className="fixed top-0 w-full z-40 bg-white h-14 flex items-center justify-between px-4 border-b">
