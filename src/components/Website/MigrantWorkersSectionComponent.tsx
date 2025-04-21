@@ -8,6 +8,7 @@ export const MigrantWorkersSectionComponent = () => {
     return (
         <div className="bg-cream pt-10 pb-32">
             <div>
+                <h1 className="text-2xl font-bold px-4 md:px-4 lg:px-52 mb-8">For Migrant Workers</h1>
                 <Tabs defaultValue="government" className="w-full">
                     <div className="overflow-x-auto no-scrollbar">
                         <TabsList className="w-max md:w-max lg:w-full whitespace-nowrap flex gap-2 rounded-xl px-0 md:px-0 lg:px-52">
@@ -34,8 +35,8 @@ export const MigrantWorkersSectionComponent = () => {
                         </TabsList>
                     </div>
 
-                    <TabsContent value="government" className="flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-around gap-6 md:gap-6 lg:gap-56 items-center mt-10 px-4 md:px-0">
-                        <div className="mt-6 space-y-4">
+                    <TabsContent value="government" className="flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-around gap-6 md:gap-6 lg:gap-56 items-center mt-5 px-4 md:px-0">
+                        <div className="space-y-4">
                             <h3 className="font-semibold text-lg">BMET registration</h3>
                             <p className="text-muted-foreground">
                                 Skip queues and securely register into Bangladesh’s migrant database...
@@ -56,7 +57,7 @@ export const MigrantWorkersSectionComponent = () => {
                                 Apply for Emigration clearance digitally and avoid queues...
                             </p>
                         </div>
-                        <div>
+                        <div className="mt-16">
                             {/* Right Image with Scroll Animation */}
                             <motion.div
                                 initial={{ opacity: 0, y: 100 }}
