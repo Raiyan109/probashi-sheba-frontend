@@ -104,3 +104,18 @@ export async function getWhoWeAre() {
         console.info("Falling back to mock data")
     }
 }
+
+// Update WhoWeAre
+export async function updateWhoWeAre(data: FormData) {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const res = await fetch(`${baseUrl}/who-we-are`, {
+        method: "PATCH",
+        body: data, // No Content-Type header needed for FormData
+    });
+
+    const response = await res.json();
+
+    if (!res.ok) throw new Error(response.message || "Update failed");
+
+    return response;
+}

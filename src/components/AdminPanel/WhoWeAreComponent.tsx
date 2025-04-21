@@ -22,6 +22,8 @@ import "suneditor/dist/css/suneditor.min.css";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getWhoWeAre } from "@/lib/api";
+import { useUpdateWhoWeAre } from "@/hooks/useWhoWeAreMutation";
+import { toast } from "sonner";
 
 // Item schema
 const whoWeAreItemSchema = z.object({
@@ -71,6 +73,8 @@ const WhoWeAreComponent = () => {
     const [descBangla, setDescBangla] = React.useState(whoWeAreData?.who_we_are_description_bangla || "");
     const [detailsEnglish, setDetailsEnglish] = React.useState(whoWeAreData?.who_we_are_details_english || "");
     const [detailsBangla, setDetailsBangla] = React.useState(whoWeAreData?.who_we_are_details_bangla || "");
+
+    const { mutate, isPending } = useUpdateWhoWeAre();
 
 
     React.useEffect(() => {
@@ -265,52 +269,81 @@ const WhoWeAreComponent = () => {
         };
         console.log(payload);
         console.log('ok');
-
-
         try {
-            // const formData = new FormData();
+            const formData = new FormData();
 
-            // console.log("Raw form data:", data);
+            // Append all text fields
+            formData.append("who_we_are_title_english", data.who_we_are_title_english);
+            formData.append("who_we_are_title_bangla", data.who_we_are_title_bangla);
 
-            // formData.append("who_we_are_title_english", data.who_we_are_title_english);
-            // formData.append("whoWeAreDescription", data.whoWeAreDescription || "");
+            // Append the rich text editor content
+            formData.append("who_we_are_description_english", descEnglish);
+            formData.append("who_we_are_description_bangla", descBangla);
+            formData.append("who_we_are_details_english", detailsEnglish);
+            formData.append("who_we_are_details_bangla", detailsBangla);
 
-            // const items = [
-            //     "whoWeAreServices",
-            //     "whoWeAreMigrants",
-            //     "whoWeAreSaved",
-            //     "whoWeAreDays",
-            //     "whoWeAreEmployers",
-            // ] as const;
+            // Append services data
+            if (data.who_we_are_services_title_english) {
+                formData.append("who_we_are_services_title_english", data.who_we_are_services_title_english);
+            }
+            if (data.who_we_are_services_title_bangla) {
+                formData.append("who_we_are_services_title_bangla", data.who_we_are_services_title_bangla);
+            }
+            if (data.who_we_are_services_unit_english) {
+                formData.append("who_we_are_services_unit_english", data.who_we_are_services_unit_english.toString());
+            }
+            if (data.who_we_are_services_unit_bangla) {
+                formData.append("who_we_are_services_unit_bangla", data.who_we_are_services_unit_bangla.toString());
+            }
 
-            // for (const key of items) {
-            //     formData.append(`${key}[title]`, data[key].who_we_are_item_title);
-            //     formData.append(`${key}[unit]`, data[key].who_we_are_item_unit || "");
-            //     if (data[key].who_we_are_item_image) {
-            //         formData.append(`${key}[image]`, data[key].who_we_are_item_image);
-            //     }
-            // }
+            // Append image files if they exist
+            if (data.who_we_are_image instanceof File) {
+                formData.append("who_we_are_image", data.who_we_are_image);
+            }
+            if (data.who_we_are_services_image instanceof File) {
+                formData.append("who_we_are_services_image", data.who_we_are_services_image);
+            }
 
+            // Use the mutation
+            mutate(formData);
 
-            // const res = await fetch("/api/site-settings", {
-            //     method: "POST",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify(body),
-            // });
-
-            // if (res.ok) {
-            //     alert("Settings saved!");
-            //     form.reset();
-            //     setImagePreviews({});
-            // } else {
-            //     alert("Failed to save settings.");
-            // }
         } catch (error) {
-            console.error(error);
-            alert("Something went wrong.");
+            console.error("Error preparing form data:", error);
+            toast.error("Failed to prepare form data");
         } finally {
             setLoading(false);
         }
+
+        // try {
+        //     const formData = new FormData();
+
+        //     console.log("Raw form data:", data);
+
+        //     formData.append("who_we_are_title_english", data.who_we_are_title_english);
+        //     formData.append("whoWeAreDescription", data.whoWeAreDescription || "");
+
+
+
+
+        //     const res = await fetch("/api/site-settings", {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify(body),
+        //     });
+
+        //     if (res.ok) {
+        //         alert("Settings saved!");
+        //         form.reset();
+        //         setImagePreviews({});
+        //     } else {
+        //         alert("Failed to save settings.");
+        //     }
+        // } catch (error) {
+        //     console.error(error);
+        //     alert("Something went wrong.");
+        // } finally {
+        //     setLoading(false);
+        // }
     };
 
     return (
@@ -713,8 +746,8 @@ const WhoWeAreComponent = () => {
 
 
                         <div>
-                            <Button type="submit" className="cursor-pointer bg-darkGreen hover:bg-darkGreen/90 w-full" disabled={loading}>
-                                {loading ? "Saving..." : "Save"}
+                            <Button type="submit" className="cursor-pointer bg-darkGreen hover:bg-darkGreen/90 w-full" disabled={isPending || loading}>
+                                {isPending || loading ? "Saving..." : "Save"}
                             </Button>
                         </div>
                     </form>
