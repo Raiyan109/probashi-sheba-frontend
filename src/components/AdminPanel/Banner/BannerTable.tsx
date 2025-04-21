@@ -190,7 +190,7 @@ const BannerTable = ({ bannerData }: { bannerData: IProps }) => {
         <div className="w-full">
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Search faqs..."
+                    placeholder="Search banners..."
                     value={(table.getColumn("banner_title_english")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("banner_title_english")?.setFilterValue(event.target.value)

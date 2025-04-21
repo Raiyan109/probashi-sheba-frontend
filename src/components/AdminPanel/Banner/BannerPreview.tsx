@@ -36,13 +36,13 @@ const BannerPreview = () => {
             <div className="mb-10">
                 <h1 className="mb-5">Banner Preview</h1>
                 <div className="flex items-center pl-6">
-                    <Carousel className="w-full max-w-xs">
+                    <Carousel className="w-full">
                         <CarouselContent>
                             {bannerData.map((b: IBanner) => (
                                 <CarouselItem key={b?._id}>
                                     <div className="p-1">
                                         <Card>
-                                            <CardContent className="flex aspect-square items-center justify-center p-6">
+                                            <CardContent className="flex aspect-4/2 items-center justify-center p-6">
                                                 {b?.banner_image && (
                                                     <Image
                                                         src={b.banner_image}

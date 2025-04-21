@@ -1,12 +1,20 @@
 import WhoWeAreComponent from '@/components/AdminPanel/WhoWeAreComponent';
-import React from 'react';
+import { getWhoWeAre } from '@/lib/api';
+import { getQueryClient } from "@/lib/get-query-client"
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 
-const WhoWeAre = () => {
+const WhoWeArePage = async () => {
+    const queryClient = getQueryClient()
+
+    await queryClient.prefetchQuery({
+        queryKey: ['faq'],
+        queryFn: getWhoWeAre
+    })
     return (
-        <div>
-            <WhoWeAreComponent/>
-        </div>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <WhoWeAreComponent />
+        </HydrationBoundary>
     );
 };
 
-export default WhoWeAre;
+export default WhoWeArePage;

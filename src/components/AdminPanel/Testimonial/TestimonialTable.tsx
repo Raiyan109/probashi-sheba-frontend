@@ -45,31 +45,31 @@ import { ITestimonial } from "@/types"
 //     id: "m5gr84i9",
 //     amount: 316,
 //     status: "success",
-//     faq_question_english: "ken99@example.com",
+//     testimonial_name_english: "ken99@example.com",
 //   },
 //   {
 //     id: "3u1reuv4",
 //     amount: 242,
 //     status: "success",
-//     faq_question_english: "Abe45@example.com",
+//     testimonial_name_english: "Abe45@example.com",
 //   },
 //   {
 //     id: "derv1ws0",
 //     amount: 837,
 //     status: "processing",
-//     faq_question_english: "Monserrat44@example.com",
+//     testimonial_name_english: "Monserrat44@example.com",
 //   },
 //   {
 //     id: "5kma53ae",
 //     amount: 874,
 //     status: "success",
-//     faq_question_english: "Silas22@example.com",
+//     testimonial_name_english: "Silas22@example.com",
 //   },
 //   {
 //     id: "bhqecj4p",
 //     amount: 721,
 //     status: "failed",
-//     faq_question_english: "carmella@example.com",
+//     testimonial_name_english: "carmella@example.com",
 //   },
 // ]
 
@@ -167,10 +167,10 @@ export const columns: ColumnDef<ITestimonial>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue("testimonial_comment_bangla")}</div>,
     },
     {
-        accessorKey: "faq_category",
+        accessorKey: "testimonial_rating",
         header: "Rating",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("faq_category")}</div>
+            <div className="capitalize">{row.getValue("testimonial_rating")}</div>
         ),
     },
     {
@@ -250,9 +250,9 @@ export function TestimonialTable() {
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Search faqs..."
-                    value={(table.getColumn("faq_question_english")?.getFilterValue() as string) ?? ""}
+                    value={(table.getColumn("testimonial_name_english")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("faq_question_english")?.setFilterValue(event.target.value)
+                        table.getColumn("testimonial_name_english")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
