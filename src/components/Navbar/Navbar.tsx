@@ -6,12 +6,13 @@ import Image from 'next/image';
 import { ChevronDown, QrCode } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useLanguage } from '@/context/LanguageContext';
+import { FormattedMessage } from 'react-intl';
+import { EnToBnLanguage } from '@/utils/EnToBnLanguage';
 const Navbar = () => {
 
     const [open, setOpen] = useState(false);
 
     const { lang, setLang } = useLanguage(); // Use context
-    
 
 
     return (
@@ -24,18 +25,18 @@ const Navbar = () => {
                         <span className="font-bold text-lg text-green-700">Probashi Sheba</span>
                     </div>
                     <nav className="hidden md:flex items-center text-sm text-gray-700 ml-2">
-                        <a href="#" className="hover:text-green-600 p-3 font-bold">Home</a>
+                        <a href="#" className="hover:text-green-600 p-3 font-bold"><FormattedMessage id='nav.route1'/></a>
                         <Popover open={open} onOpenChange={setOpen}>
                             <div onMouseEnter={() => setOpen(true)}
                                 onMouseLeave={() => setOpen(false)}
                                 className="relative">
                                 <PopoverTrigger className="flex items-center gap-1 hover:text-green-600 hover:cursor-pointer p-3 font-bold">
-                                    Services <ChevronDown className="w-4 h-4" />
+                                <FormattedMessage id='nav.route2'/> <ChevronDown className="w-4 h-4" />
                                 </PopoverTrigger>
                                 <PopoverContent className="w-full p-6 grid grid-cols-4 gap-6" onMouseEnter={() => setOpen(true)}
                                     onMouseLeave={() => setOpen(false)}>
                                     <div>
-                                        <h4 className="text-green-700 font-semibold mb-2">Government</h4>
+                                        <h4 className="text-green-700 font-semibold mb-2"><FormattedMessage id='nav.route2'/></h4>
                                         <ul className="space-y-1 text-sm">
                                             <li><a href="#" className="hover:text-green-600">BMET Registration</a></li>
                                             <li><a href="#" className="hover:text-green-600">PDO (Pre-Departure Orientation)</a></li>
@@ -70,10 +71,10 @@ const Navbar = () => {
                                 </PopoverContent>
                             </div>
                         </Popover>
-                        <a href="#" className="hover:text-green-600 p-3 font-bold">Recruitment</a>
-                        <a href="#" className="hover:text-green-600 p-3 font-bold">Government</a>
-                        <a href="#" className="hover:text-green-600 p-3 font-bold">Portals</a>
-                        <a href="#" className="hover:text-green-600 p-3 font-bold">Download Cards</a>
+                        <a href="#" className="hover:text-green-600 p-3 font-bold"><FormattedMessage id='nav.route3'/></a>
+                        <a href="#" className="hover:text-green-600 p-3 font-bold"><FormattedMessage id='nav.route4'/></a>
+                        <a href="#" className="hover:text-green-600 p-3 font-bold"><FormattedMessage id='nav.route5'/></a>
+                        <a href="#" className="hover:text-green-600 p-3 font-bold"><FormattedMessage id='nav.route6'/></a>
                     </nav>
                 </div>
                 <div className="flex items-center mr-6 gap-2">
