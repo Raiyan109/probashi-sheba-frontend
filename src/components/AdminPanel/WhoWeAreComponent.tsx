@@ -48,7 +48,29 @@ const formSchema = z.object({
     who_we_are_services_unit_english: z.number().optional(),
     who_we_are_services_unit_bangla: z.string().optional(),
 
+    who_we_are_migrants_image: z.instanceof(File).optional(),
+    who_we_are_migrants_title_english: z.string().optional(),
+    who_we_are_migrants_title_bangla: z.string().optional(),
+    who_we_are_migrants_unit_english: z.number().optional(),
+    who_we_are_migrants_unit_bangla: z.string().optional(),
 
+    who_we_are_saved_image: z.instanceof(File).optional(),
+    who_we_are_saved_title_english: z.string().optional(),
+    who_we_are_saved_title_bangla: z.string().optional(),
+    who_we_are_saved_unit_english: z.number().optional(),
+    who_we_are_saved_unit_bangla: z.string().optional(),
+
+    who_we_are_days_image: z.instanceof(File).optional(),
+    who_we_are_days_title_english: z.string().optional(),
+    who_we_are_days_title_bangla: z.string().optional(),
+    who_we_are_days_unit_english: z.number().optional(),
+    who_we_are_days_unit_bangla: z.string().optional(),
+
+    who_we_are_employees_image: z.instanceof(File).optional(),
+    who_we_are_employees_title_english: z.string().optional(),
+    who_we_are_employees_title_bangla: z.string().optional(),
+    who_we_are_employees_unit_english: z.number().optional(),
+    who_we_are_employees_unit_bangla: z.string().optional(),
     // whoWeAreServices: whoWeAreItemSchema,
     // whoWeAreMigrants: whoWeAreItemSchema,
     // whoWeAreSaved: whoWeAreItemSchema,
@@ -93,28 +115,27 @@ const WhoWeAreComponent = () => {
                 who_we_are_services_title_bangla: whoWeAreData?.who_we_are_services?.who_we_are_item_title_bangla ?? "",
                 who_we_are_services_unit_english: whoWeAreData?.who_we_are_services?.who_we_are_item_unit_english ?? 0,
                 who_we_are_services_unit_bangla: whoWeAreData?.who_we_are_services?.who_we_are_item_unit_bangla ?? 0,
-                // whoWeAreServices: {
-                //     who_we_are_item_title_english: whoWeAreData.who_we_are_services?.who_we_are_item_title_english ?? "",
-                //     who_we_are_item_title_bangla: whoWeAreData.who_we_are_services?.who_we_are_item_title_bangla ?? "",
-                //     who_we_are_item_unit_english: whoWeAreData.who_we_are_services?.who_we_are_item_unit_english ?? 0,
-                //     who_we_are_item_unit_bangla: whoWeAreData.who_we_are_services?.who_we_are_item_unit_bangla ?? 0,
-                // },
-                // whoWeAreMigrants: {
-                //     who_we_are_item_title: whoWeAreData.who_we_are_migrants?.who_we_are_item_title_english ?? "",
-                //     who_we_are_item_unit: whoWeAreData.who_we_are_migrants?.who_we_are_item_unit_english ?? 0,
-                // },
-                // whoWeAreSaved: {
-                //     who_we_are_item_title: whoWeAreData.who_we_are_saved?.who_we_are_item_title_english ?? "",
-                //     who_we_are_item_unit: whoWeAreData.who_we_are_saved?.who_we_are_item_unit_english ?? 0,
-                // },
-                // whoWeAreDays: {
-                //     who_we_are_item_title: whoWeAreData.who_we_are_days?.who_we_are_item_title_english ?? "",
-                //     who_we_are_item_unit: whoWeAreData.who_we_are_days?.who_we_are_item_unit_english ?? 0,
-                // },
-                // whoWeAreEmployers: {
-                //     who_we_are_item_title: whoWeAreData.who_we_are_employers?.who_we_are_item_title_english ?? "",
-                //     who_we_are_item_unit: whoWeAreData.who_we_are_employers?.who_we_are_item_unit_english ?? 0,
-                // },
+
+                who_we_are_migrants_title_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_english ?? "",
+                who_we_are_migrants_title_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_bangla ?? "",
+                who_we_are_migrants_unit_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_english ?? 0,
+                who_we_are_migrants_unit_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_bangla ?? 0,
+
+                who_we_are_saved_title_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_english ?? "",
+                who_we_are_saved_title_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_bangla ?? "",
+                who_we_are_saved_unit_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_english ?? 0,
+                who_we_are_saved_unit_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_bangla ?? 0,
+
+                who_we_are_days_title_english: whoWeAreData?.who_we_are_days?.who_we_are_item_title_english ?? "",
+                who_we_are_days_title_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_title_bangla ?? "",
+                who_we_are_days_unit_english: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_english ?? 0,
+                who_we_are_days_unit_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_bangla ?? 0,
+
+                who_we_are_employees_title_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_english ?? "",
+                who_we_are_employees_title_bangla: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_bangla ?? "",
+                who_we_are_employees_unit_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_unit_english ?? 0,
+                who_we_are_employees_unit_bangla: whoWeAreData?.who_we_are_employees?.who_we_are_item_unit_bangla ?? 0,
+
             });
         }
     }, [whoWeAreData]);
@@ -131,22 +152,26 @@ const WhoWeAreComponent = () => {
                 who_we_are_services_title_bangla: whoWeAreData?.who_we_are_services_title_bangla ?? "",
                 who_we_are_services_unit_english: whoWeAreData?.who_we_are_services_unit_english ?? 0,
                 who_we_are_services_unit_bangla: whoWeAreData?.who_we_are_services_unit_bangla ?? 0,
-                // whoWeAreMigrants: {
-                //     who_we_are_item_title: whoWeAreData.who_we_are_migrants?.who_we_are_item_title_english ?? "",
-                //     who_we_are_item_unit: whoWeAreData.who_we_are_migrants?.who_we_are_item_unit_english ?? 0,
-                // },
-                // whoWeAreSaved: {
-                //     who_we_are_item_title: whoWeAreData.who_we_are_saved?.who_we_are_item_title_english ?? "",
-                //     who_we_are_item_unit: whoWeAreData.who_we_are_saved?.who_we_are_item_unit_english ?? 0,
-                // },
-                // whoWeAreDays: {
-                //     who_we_are_item_title: whoWeAreData.who_we_are_days?.who_we_are_item_title_english ?? "",
-                //     who_we_are_item_unit: whoWeAreData.who_we_are_days?.who_we_are_item_unit_english ?? 0,
-                // },
-                // whoWeAreEmployers: {
-                //     who_we_are_item_title: whoWeAreData.who_we_are_employers?.who_we_are_item_title_english ?? "",
-                //     who_we_are_item_unit: whoWeAreData.who_we_are_employers?.who_we_are_item_unit_english ?? 0,
-                // },
+
+                who_we_are_migrants_title_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_english ?? "",
+                who_we_are_migrants_title_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_bangla ?? "",
+                who_we_are_migrants_unit_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_english ?? 0,
+                who_we_are_migrants_unit_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_bangla ?? 0,
+
+                who_we_are_saved_title_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_english ?? "",
+                who_we_are_saved_title_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_bangla ?? "",
+                who_we_are_saved_unit_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_english ?? 0,
+                who_we_are_saved_unit_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_bangla ?? 0,
+
+                who_we_are_days_title_english: whoWeAreData?.who_we_are_days?.who_we_are_item_title_english ?? "",
+                who_we_are_days_title_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_title_bangla ?? "",
+                who_we_are_days_unit_english: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_english ?? 0,
+                who_we_are_days_unit_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_bangla ?? 0,
+
+                who_we_are_employees_title_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_english ?? "",
+                who_we_are_employees_title_bangla: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_bangla ?? "",
+                who_we_are_employees_unit_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_unit_english ?? 0,
+                who_we_are_employees_unit_bangla: whoWeAreData?.who_we_are_employees?.who_we_are_item_unit_bangla ?? 0,
             }
             : undefined,
     });
@@ -260,17 +285,7 @@ const WhoWeAreComponent = () => {
 
 
     const onSubmit = async (data: FormData) => {
-        // setLoading(true);
-        console.log('Uploaded file:', data?.who_we_are_image)
-        const payload = {
-            ...data,
-            who_we_are_description_english: descEnglish,
-            who_we_are_description_bangla: descBangla,
-            who_we_are_details_english: detailsEnglish,
-            who_we_are_details_bangla: detailsBangla,
-        };
-        console.log(payload);
-        console.log('ok');
+        setLoading(true);
         try {
             const formData = new FormData();
 
@@ -635,7 +650,7 @@ const WhoWeAreComponent = () => {
                             )}
                         /> */}
 
-
+                        {/* Services */}
                         <div className="space-y-4 border rounded p-4">
                             <h3 className="text-xl font-semibold">Services</h3>
 
@@ -709,6 +724,422 @@ const WhoWeAreComponent = () => {
                             <FormField
                                 control={form.control}
                                 name="who_we_are_services_image"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-xl">Image</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    const file = e.target.files?.[0]
+                                                    if (file) {
+                                                        const url = URL.createObjectURL(file)
+                                                        setImagePreview(url) // your own preview state
+                                                        field.onChange(file) // pass the file to react-hook-form
+                                                    }
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        {imagePreview && (
+                                            <img
+                                                src={imagePreview}
+                                                alt="Preview"
+                                                className="mt-2 w-32 h-32 object-cover rounded border shadow"
+                                            />
+                                        )}
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
+                        {/* Migrants */}
+                        <div className="space-y-4 border rounded p-4">
+                            <h3 className="text-xl font-semibold">Migrants</h3>
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_migrants_title_english'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title (English)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter title" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_migrants_title_bangla'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title (Bangla)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter title" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_migrants_unit_english'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Unit (English)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="number"
+                                                placeholder="Enter unit"
+                                                {...field}
+                                                onChange={event => field.onChange(+event.target.value)}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_migrants_unit_bangla'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Unit (Bangla)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="string"
+                                                placeholder="Enter unit"
+                                                {...field}
+                                                onChange={event => field.onChange(+event.target.value)}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="who_we_are_migrants_image"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-xl">Image</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    const file = e.target.files?.[0]
+                                                    if (file) {
+                                                        const url = URL.createObjectURL(file)
+                                                        setImagePreview(url) // your own preview state
+                                                        field.onChange(file) // pass the file to react-hook-form
+                                                    }
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        {imagePreview && (
+                                            <img
+                                                src={imagePreview}
+                                                alt="Preview"
+                                                className="mt-2 w-32 h-32 object-cover rounded border shadow"
+                                            />
+                                        )}
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
+                        {/* Saved */}
+                        <div className="space-y-4 border rounded p-4">
+                            <h3 className="text-xl font-semibold">Saved</h3>
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_saved_title_english'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title (English)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter title" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_saved_title_bangla'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title (Bangla)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter title" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_saved_unit_english'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Unit (English)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="number"
+                                                placeholder="Enter unit"
+                                                {...field}
+                                                onChange={event => field.onChange(+event.target.value)}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_saved_unit_bangla'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Unit (Bangla)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="string"
+                                                placeholder="Enter unit"
+                                                {...field}
+                                                onChange={event => field.onChange(+event.target.value)}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="who_we_are_saved_image"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-xl">Image</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    const file = e.target.files?.[0]
+                                                    if (file) {
+                                                        const url = URL.createObjectURL(file)
+                                                        setImagePreview(url) // your own preview state
+                                                        field.onChange(file) // pass the file to react-hook-form
+                                                    }
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        {imagePreview && (
+                                            <img
+                                                src={imagePreview}
+                                                alt="Preview"
+                                                className="mt-2 w-32 h-32 object-cover rounded border shadow"
+                                            />
+                                        )}
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
+                        {/* Days */}
+                        <div className="space-y-4 border rounded p-4">
+                            <h3 className="text-xl font-semibold">Days</h3>
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_days_title_english'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title (English)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter title" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_days_title_bangla'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title (Bangla)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter title" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_days_unit_english'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Unit (English)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="number"
+                                                placeholder="Enter unit"
+                                                {...field}
+                                                onChange={event => field.onChange(+event.target.value)}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_days_unit_bangla'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Unit (Bangla)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="string"
+                                                placeholder="Enter unit"
+                                                {...field}
+                                                onChange={event => field.onChange(+event.target.value)}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="who_we_are_days_image"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-xl">Image</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    const file = e.target.files?.[0]
+                                                    if (file) {
+                                                        const url = URL.createObjectURL(file)
+                                                        setImagePreview(url) // your own preview state
+                                                        field.onChange(file) // pass the file to react-hook-form
+                                                    }
+                                                }}
+                                            />
+                                        </FormControl>
+
+                                        {imagePreview && (
+                                            <img
+                                                src={imagePreview}
+                                                alt="Preview"
+                                                className="mt-2 w-32 h-32 object-cover rounded border shadow"
+                                            />
+                                        )}
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+
+                        {/* Employees */}
+                        <div className="space-y-4 border rounded p-4">
+                            <h3 className="text-xl font-semibold">Employees</h3>
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_employees_title_english'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title (English)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter title" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_employees_title_bangla'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title (Bangla)</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter title" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_employees_unit_english'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Unit (English)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="number"
+                                                placeholder="Enter unit"
+                                                {...field}
+                                                onChange={event => field.onChange(+event.target.value)}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name='who_we_are_employees_unit_bangla'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Unit (Bangla)</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="string"
+                                                placeholder="Enter unit"
+                                                {...field}
+                                                onChange={event => field.onChange(+event.target.value)}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="who_we_are_employees_image"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel className="text-xl">Image</FormLabel>
