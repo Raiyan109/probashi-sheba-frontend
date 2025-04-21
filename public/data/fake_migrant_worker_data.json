@@ -1,0 +1,106 @@
+[
+  {
+    "for_migrant_workers_tab_name_english": "Visa Application Guide",
+    "for_migrant_workers_tab_name_bangla": "ভিসা আবেদন গাইড",
+    "for_migrant_workers_tab_image": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_icon": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_status": "active",
+    "for_migrant_workers_tab_serial": 1,
+    "for_migrant_workers_tab_contents": [
+      {
+        "for_migrant_workers_tab_contents_title_english": "Step-by-step Visa Process",
+        "for_migrant_workers_tab_contents_title_bangla": "ধাপে ধাপে ভিসা প্রক্রিয়া",
+        "for_migrant_workers_tab_contents_description_english": "Detailed explanation of how to apply for a work visa.",
+        "for_migrant_workers_tab_contents_description_bangla": "কাজের ভিসার জন্য আবেদন করার বিস্তারিত প্রক্রিয়া।",
+        "for_migrant_workers_tab_contents_link": "https://example.com/visa-process",
+        "for_migrant_workers_tab_contents_link_text_english": "Read More",
+        "for_migrant_workers_tab_contents_link_text_bangla": "আরও পড়ুন"
+      },
+      {
+        "for_migrant_workers_tab_contents_title_english": "Step-by-step Visa Process",
+        "for_migrant_workers_tab_contents_title_bangla": "ধাপে ধাপে ভিসা প্রক্রিয়া",
+        "for_migrant_workers_tab_contents_description_english": "Detailed explanation of how to apply for a work visa.",
+        "for_migrant_workers_tab_contents_description_bangla": "কাজের ভিসার জন্য আবেদন করার বিস্তারিত প্রক্রিয়া।",
+        "for_migrant_workers_tab_contents_link": "https://example.com/visa-process",
+        "for_migrant_workers_tab_contents_link_text_english": "Read More",
+        "for_migrant_workers_tab_contents_link_text_bangla": "আরও পড়ুন"
+      }
+    ]
+  },
+  {
+    "for_migrant_workers_tab_name_english": "Legal Rights Abroad",
+    "for_migrant_workers_tab_name_bangla": "বিদেশে আইনি অধিকার",
+    "for_migrant_workers_tab_image": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_icon": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_status": "active",
+    "for_migrant_workers_tab_serial": 2,
+    "for_migrant_workers_tab_contents": [
+      {
+        "for_migrant_workers_tab_contents_title_english": "Know Your Rights",
+        "for_migrant_workers_tab_contents_title_bangla": "আপনার অধিকার জানুন",
+        "for_migrant_workers_tab_contents_description_english": "A guide to understanding your rights as a migrant worker.",
+        "for_migrant_workers_tab_contents_description_bangla": "প্রবাসী কর্মী হিসেবে আপনার অধিকার বোঝার একটি গাইড।",
+        "for_migrant_workers_tab_contents_link": "https://example.com/legal-rights",
+        "for_migrant_workers_tab_contents_link_text_english": "Learn More",
+        "for_migrant_workers_tab_contents_link_text_bangla": "আরও জানুন"
+      }
+    ]
+  },
+  {
+    "for_migrant_workers_tab_name_english": "Remittance Services",
+    "for_migrant_workers_tab_name_bangla": "রেমিটেন্স সেবা",
+    "for_migrant_workers_tab_image": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_icon": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_status": "inactive",
+    "for_migrant_workers_tab_serial": 3,
+    "for_migrant_workers_tab_contents": [
+      {
+        "for_migrant_workers_tab_contents_title_english": "Safe Ways to Send Money",
+        "for_migrant_workers_tab_contents_title_bangla": "নিরাপদ উপায়ে টাকা পাঠানো",
+        "for_migrant_workers_tab_contents_description_english": "Explore secure channels for remittance transfer.",
+        "for_migrant_workers_tab_contents_description_bangla": "রেমিটেন্স পাঠানোর নিরাপদ মাধ্যমসমূহ জানুন।",
+        "for_migrant_workers_tab_contents_link": "https://example.com/send-money",
+        "for_migrant_workers_tab_contents_link_text_english": "Explore Options",
+        "for_migrant_workers_tab_contents_link_text_bangla": "বিকল্প দেখুন"
+      }
+    ]
+  },
+  {
+    "for_migrant_workers_tab_name_english": "Training & Orientation",
+    "for_migrant_workers_tab_name_bangla": "প্রশিক্ষণ ও ওরিয়েন্টেশন",
+    "for_migrant_workers_tab_image": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_icon": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_status": "active",
+    "for_migrant_workers_tab_serial": 4,
+    "for_migrant_workers_tab_contents": [
+      {
+        "for_migrant_workers_tab_contents_title_english": "Pre-Departure Training",
+        "for_migrant_workers_tab_contents_title_bangla": "বিদেশ গমনের পূর্ব প্রশিক্ষণ",
+        "for_migrant_workers_tab_contents_description_english": "Get equipped with essential knowledge before leaving.",
+        "for_migrant_workers_tab_contents_description_bangla": "বিদেশ যাওয়ার আগে প্রয়োজনীয় জ্ঞান অর্জন করুন।",
+        "for_migrant_workers_tab_contents_link": "https://example.com/orientation",
+        "for_migrant_workers_tab_contents_link_text_english": "Register Now",
+        "for_migrant_workers_tab_contents_link_text_bangla": "এখনই নিবন্ধন করুন"
+      }
+    ]
+  },
+  {
+    "for_migrant_workers_tab_name_english": "Health & Safety",
+    "for_migrant_workers_tab_name_bangla": "স্বাস্থ্য ও নিরাপত্তা",
+    "for_migrant_workers_tab_image": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_icon": "https://cit-node.blr1.cdn.digitaloceanspaces.com/shoe-pos/a96523d8-1c16-474e-a8b2-9aadf5e23d9d-SPARX%20Flip%20flops%20for%20Gents.webp",
+    "for_migrant_workers_tab_status": "active",
+    "for_migrant_workers_tab_serial": 5,
+    "for_migrant_workers_tab_contents": [
+      {
+        "for_migrant_workers_tab_contents_title_english": "Staying Safe Abroad",
+        "for_migrant_workers_tab_contents_title_bangla": "বিদেশে নিরাপদ থাকা",
+        "for_migrant_workers_tab_contents_description_english": "Tips and resources to maintain your health and safety.",
+        "for_migrant_workers_tab_contents_description_bangla": "আপনার স্বাস্থ্য ও নিরাপত্তা বজায় রাখার টিপস ও রিসোর্স।",
+        "for_migrant_workers_tab_contents_link": "https://example.com/safety-tips",
+        "for_migrant_workers_tab_contents_link_text_english": "View Guide",
+        "for_migrant_workers_tab_contents_link_text_bangla": "গাইড দেখুন"
+      }
+    ]
+  }
+]
