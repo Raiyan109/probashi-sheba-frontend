@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import { ChevronDown, QrCode } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useLanguage } from '@/context/LanguageContext';
 const Navbar = () => {
 
     const [open, setOpen] = useState(false);
 
-    const [lang, setLang] = useState<'en' | 'bn'>('en');
+    const { lang, setLang } = useLanguage(); // Use context
     
 
 

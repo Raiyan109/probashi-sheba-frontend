@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/lib/providers";
 import { Suspense } from "react";
 import GlobalLoader from "@/components/Loaders/GlobalLoader";
+import IntlAndContextWrapper from "@/intlAndContextWrapper/IntlAndContextWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,9 @@ export default function RootLayout({
       >
         <Suspense fallback={<GlobalLoader />}>
           <Providers>
-            {children}
+            <IntlAndContextWrapper>
+              {children}
+            </IntlAndContextWrapper>
           </Providers>
         </Suspense>
       </body>
