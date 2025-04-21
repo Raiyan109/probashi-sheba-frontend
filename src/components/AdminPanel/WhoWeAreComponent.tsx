@@ -313,12 +313,80 @@ const WhoWeAreComponent = () => {
                 formData.append("who_we_are_services_unit_bangla", data.who_we_are_services_unit_bangla.toString());
             }
 
+            // Append migrants data
+            if (data.who_we_are_migrants_title_english) {
+                formData.append("who_we_are_migrants_title_english", data.who_we_are_migrants_title_english);
+            }
+            if (data.who_we_are_migrants_title_bangla) {
+                formData.append("who_we_are_migrants_title_bangla", data.who_we_are_migrants_title_bangla);
+            }
+            if (data.who_we_are_migrants_unit_english) {
+                formData.append("who_we_are_migrants_unit_english", data.who_we_are_migrants_unit_english.toString());
+            }
+            if (data.who_we_are_migrants_unit_bangla) {
+                formData.append("who_we_are_migrants_unit_bangla", data.who_we_are_migrants_unit_bangla.toString());
+            }
+
+            // Append saved data
+            if (data.who_we_are_saved_title_english) {
+                formData.append("who_we_are_saved_title_english", data.who_we_are_saved_title_english);
+            }
+            if (data.who_we_are_saved_title_bangla) {
+                formData.append("who_we_are_saved_title_bangla", data.who_we_are_saved_title_bangla);
+            }
+            if (data.who_we_are_saved_unit_english) {
+                formData.append("who_we_are_saved_unit_english", data.who_we_are_saved_unit_english.toString());
+            }
+            if (data.who_we_are_saved_unit_bangla) {
+                formData.append("who_we_are_saved_unit_bangla", data.who_we_are_saved_unit_bangla.toString());
+            }
+
+            // Append days data
+            if (data.who_we_are_days_title_english) {
+                formData.append("who_we_are_days_title_english", data.who_we_are_days_title_english);
+            }
+            if (data.who_we_are_days_title_bangla) {
+                formData.append("who_we_are_days_title_bangla", data.who_we_are_days_title_bangla);
+            }
+            if (data.who_we_are_days_unit_english) {
+                formData.append("who_we_are_days_unit_english", data.who_we_are_days_unit_english.toString());
+            }
+            if (data.who_we_are_days_unit_bangla) {
+                formData.append("who_we_are_days_unit_bangla", data.who_we_are_days_unit_bangla.toString());
+            }
+
+            // Append employees data
+            if (data.who_we_are_employees_title_english) {
+                formData.append("who_we_are_employees_title_english", data.who_we_are_employees_title_english);
+            }
+            if (data.who_we_are_employees_title_bangla) {
+                formData.append("who_we_are_employees_title_bangla", data.who_we_are_employees_title_bangla);
+            }
+            if (data.who_we_are_employees_unit_english) {
+                formData.append("who_we_are_employees_unit_english", data.who_we_are_employees_unit_english.toString());
+            }
+            if (data.who_we_are_employees_unit_bangla) {
+                formData.append("who_we_are_employees_unit_bangla", data.who_we_are_employees_unit_bangla.toString());
+            }
+
             // Append image files if they exist
             if (data.who_we_are_image instanceof File) {
                 formData.append("who_we_are_image", data.who_we_are_image);
             }
             if (data.who_we_are_services_image instanceof File) {
                 formData.append("who_we_are_services_image", data.who_we_are_services_image);
+            }
+            if (data.who_we_are_migrants_image instanceof File) {
+                formData.append("who_we_are_migrants_image", data.who_we_are_migrants_image);
+            }
+            if (data.who_we_are_saved_image instanceof File) {
+                formData.append("who_we_are_saved_image", data.who_we_are_saved_image);
+            }
+            if (data.who_we_are_days_image instanceof File) {
+                formData.append("who_we_are_days_image", data.who_we_are_days_image);
+            }
+            if (data.who_we_are_employees_image instanceof File) {
+                formData.append("who_we_are_employees_image", data.who_we_are_employees_image);
             }
 
             // Use the mutation
