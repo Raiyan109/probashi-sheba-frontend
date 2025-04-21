@@ -46,7 +46,7 @@ const formSchema = z.object({
     who_we_are_services_title_english: z.string().optional(),
     who_we_are_services_title_bangla: z.string().optional(),
     who_we_are_services_unit_english: z.number().optional(),
-    who_we_are_services_unit_bangla: z.number().optional(),
+    who_we_are_services_unit_bangla: z.string().optional(),
 
 
     // whoWeAreServices: whoWeAreItemSchema,
@@ -76,6 +76,8 @@ const WhoWeAreComponent = () => {
 
     const { mutate, isPending } = useUpdateWhoWeAre();
 
+    console.log(whoWeAreData);
+
 
     React.useEffect(() => {
         if (whoWeAreData) {
@@ -87,10 +89,10 @@ const WhoWeAreComponent = () => {
                 who_we_are_title_english: whoWeAreData.who_we_are_title_english ?? "",
                 who_we_are_title_bangla: whoWeAreData.who_we_are_title_bangla ?? "",
 
-                who_we_are_services_title_english: whoWeAreData?.who_we_are_services_title_english ?? "",
-                who_we_are_services_title_bangla: whoWeAreData?.who_we_are_services_title_bangla ?? "",
-                who_we_are_services_unit_english: whoWeAreData?.who_we_are_services_unit_english ?? 0,
-                who_we_are_services_unit_bangla: whoWeAreData?.who_we_are_services_unit_bangla ?? 0,
+                who_we_are_services_title_english: whoWeAreData?.who_we_are_services?.who_we_are_item_title_english ?? "",
+                who_we_are_services_title_bangla: whoWeAreData?.who_we_are_services?.who_we_are_item_title_bangla ?? "",
+                who_we_are_services_unit_english: whoWeAreData?.who_we_are_services?.who_we_are_item_unit_english ?? 0,
+                who_we_are_services_unit_bangla: whoWeAreData?.who_we_are_services?.who_we_are_item_unit_bangla ?? 0,
                 // whoWeAreServices: {
                 //     who_we_are_item_title_english: whoWeAreData.who_we_are_services?.who_we_are_item_title_english ?? "",
                 //     who_we_are_item_title_bangla: whoWeAreData.who_we_are_services?.who_we_are_item_title_bangla ?? "",
@@ -693,7 +695,7 @@ const WhoWeAreComponent = () => {
                                         <FormLabel>Unit (Bangla)</FormLabel>
                                         <FormControl>
                                             <Input
-                                                type="number"
+                                                type="string"
                                                 placeholder="Enter unit"
                                                 {...field}
                                                 onChange={event => field.onChange(+event.target.value)}
