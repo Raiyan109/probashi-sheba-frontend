@@ -59,7 +59,7 @@ export const MigrantWorkersSectionComponent = () => {
                         <TabsList className="w-max md:w-max lg:w-full whitespace-nowrap flex gap-2 rounded-xl px-0 md:px-0 lg:px-44">
                             {
                                 data?.map((tab, idx) => (
-                                    <TabsTrigger key={idx} value={tab?.for_migrant_workers_tab_name_english} className="text-lg flex items-center gap-2 cursor-pointer relative font-medium border-none shadow-none transition-all duration-200 data-[state=active]:text-foreground data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 lg:data-[state=active]:after:left-7 data-[state=active]:after:right-0 data-[state=active]:after:h-[2px] data-[state=active]:after:bg-darkGreen">
+                                    <TabsTrigger key={idx} value={tab?.for_migrant_workers_tab_name_english} className="text-lg cursor-pointer relative font-medium border-none shadow-none transition-all duration-200 data-[state=active]:text-foreground data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-[2px] data-[state=active]:after:bg-darkGreen">
                                         <Image src={tab?.for_migrant_workers_tab_icon} alt="Gov" className="w-12 h-12 rounded-md" width={48} height={48} />
                                         {lang === "bn" ? tab?.for_migrant_workers_tab_name_bangla : tab?.for_migrant_workers_tab_name_english}
                                     </TabsTrigger>
