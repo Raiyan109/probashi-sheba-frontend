@@ -24,6 +24,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getWhoWeAre } from "@/lib/api";
 import { useUpdateWhoWeAre } from "@/hooks/useWhoWeAreMutation";
 import { toast } from "sonner";
+import { AdditionalImage } from "@/types";
 
 // Item schema
 const whoWeAreItemSchema = z.object({
@@ -40,37 +41,44 @@ const whoWeAreItemSchema = z.object({
 const formSchema = z.object({
     who_we_are_title_english: z.string().min(1, "Title is required"),
     who_we_are_title_bangla: z.string().min(1, "Title is required"),
-    who_we_are_image: z.instanceof(File).optional(),
+    who_we_are_image: z.union([z.instanceof(File), z.string()]).optional(),
 
-    who_we_are_services_image: z.instanceof(File).optional(),
+    who_we_are_services_image: z.union([z.instanceof(File), z.string()]).optional(),
     who_we_are_services_title_english: z.string().optional(),
     who_we_are_services_title_bangla: z.string().optional(),
     who_we_are_services_unit_english: z.number().optional(),
     who_we_are_services_unit_bangla: z.string().optional(),
 
-    who_we_are_migrants_image: z.instanceof(File).optional(),
+    who_we_are_migrants_image: z.union([z.instanceof(File), z.string()]).optional(),
     who_we_are_migrants_title_english: z.string().optional(),
     who_we_are_migrants_title_bangla: z.string().optional(),
     who_we_are_migrants_unit_english: z.number().optional(),
     who_we_are_migrants_unit_bangla: z.string().optional(),
 
-    who_we_are_saved_image: z.instanceof(File).optional(),
+    who_we_are_saved_image: z.union([z.instanceof(File), z.string()]).optional(),
     who_we_are_saved_title_english: z.string().optional(),
     who_we_are_saved_title_bangla: z.string().optional(),
     who_we_are_saved_unit_english: z.number().optional(),
     who_we_are_saved_unit_bangla: z.string().optional(),
 
-    who_we_are_days_image: z.instanceof(File).optional(),
+    who_we_are_days_image: z.union([z.instanceof(File), z.string()]).optional(),
     who_we_are_days_title_english: z.string().optional(),
     who_we_are_days_title_bangla: z.string().optional(),
     who_we_are_days_unit_english: z.number().optional(),
     who_we_are_days_unit_bangla: z.string().optional(),
 
-    who_we_are_employees_image: z.instanceof(File).optional(),
+    who_we_are_employees_image: z.union([z.instanceof(File), z.string()]).optional(),
     who_we_are_employees_title_english: z.string().optional(),
     who_we_are_employees_title_bangla: z.string().optional(),
     who_we_are_employees_unit_english: z.number().optional(),
     who_we_are_employees_unit_bangla: z.string().optional(),
+
+    who_we_are_additional_images: z.union([
+        z.array(z.instanceof(File)),
+        z.array(z.string()),
+        z.instanceof(File),
+        z.string()
+    ]).optional(),
     // whoWeAreServices: whoWeAreItemSchema,
     // whoWeAreMigrants: whoWeAreItemSchema,
     // whoWeAreSaved: whoWeAreItemSchema,
@@ -87,8 +95,13 @@ const WhoWeAreComponent = () => {
     })
     const whoWeAreData = data?.data
 
-    const [imagePreviews, setImagePreviews] = React.useState<Record<string, string | null>>({});
-    const [imagePreview, setImagePreview] = React.useState<string | null>(null)
+    const [additionalImagePreviews, setAdditionalImagePreviews] = React.useState<Array<{ url: string, file?: File }>>([]);
+    const [imagePreview, setImagePreview] = React.useState<string | null>(whoWeAreData?.who_we_are_image)
+    const [serviceImagePreview, setServiceImagePreview] = React.useState<string | null>(whoWeAreData?.who_we_are_services?.who_we_are_item_image)
+    const [migrantsImagePreview, setMigrantsImagePreview] = React.useState<string | null>(whoWeAreData?.who_we_are_migrants?.who_we_are_item_image)
+    const [savedImagePreview, setSavedImagePreview] = React.useState<string | null>(whoWeAreData?.who_we_are_saved?.who_we_are_item_image)
+    const [daysImagePreview, setDaysImagePreview] = React.useState<string | null>(whoWeAreData?.who_we_are_days?.who_we_are_item_image)
+    const [employeesImagePreview, setEmployeesImagePreview] = React.useState<string | null>(whoWeAreData?.who_we_are_employees?.who_we_are_item_image)
 
     const [loading, setLoading] = React.useState(false);
     const [descEnglish, setDescEnglish] = React.useState(whoWeAreData?.who_we_are_description_english || "");
@@ -107,30 +120,52 @@ const WhoWeAreComponent = () => {
             setDescBangla(whoWeAreData.who_we_are_description_bangla || "");
             setDetailsEnglish(whoWeAreData.who_we_are_details_english || "");
             setDetailsBangla(whoWeAreData.who_we_are_details_bangla || "");
+
+            // Update all image previews
+            setImagePreview(whoWeAreData.who_we_are_image || null);
+            setServiceImagePreview(whoWeAreData?.who_we_are_services?.who_we_are_item_image || null);
+            setMigrantsImagePreview(whoWeAreData?.who_we_are_migrants?.who_we_are_item_image || null);
+            setSavedImagePreview(whoWeAreData?.who_we_are_saved?.who_we_are_item_image || null);
+            setDaysImagePreview(whoWeAreData?.who_we_are_days?.who_we_are_item_image || null);
+            setEmployeesImagePreview(whoWeAreData?.who_we_are_employees?.who_we_are_item_image || null);
+
+            setAdditionalImagePreviews(
+                whoWeAreData?.who_we_are_additional_images?.map((img: AdditionalImage) => ({
+                    url: img.additional_image,
+                    key: img.additional_image_key
+                })) || []
+            );
             form.reset({
                 who_we_are_title_english: whoWeAreData.who_we_are_title_english ?? "",
                 who_we_are_title_bangla: whoWeAreData.who_we_are_title_bangla ?? "",
+                who_we_are_image: whoWeAreData.who_we_are_image ?? "",
+                who_we_are_additional_images: whoWeAreData?.who_we_are_additional_images ?? [],
 
+                who_we_are_services_image: whoWeAreData?.who_we_are_services?.who_we_are_item_image ?? "",
                 who_we_are_services_title_english: whoWeAreData?.who_we_are_services?.who_we_are_item_title_english ?? "",
                 who_we_are_services_title_bangla: whoWeAreData?.who_we_are_services?.who_we_are_item_title_bangla ?? "",
                 who_we_are_services_unit_english: whoWeAreData?.who_we_are_services?.who_we_are_item_unit_english ?? 0,
                 who_we_are_services_unit_bangla: whoWeAreData?.who_we_are_services?.who_we_are_item_unit_bangla ?? 0,
 
+                who_we_are_migrants_image: whoWeAreData?.who_we_are_migrants?.who_we_are_item_image ?? "",
                 who_we_are_migrants_title_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_english ?? "",
                 who_we_are_migrants_title_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_bangla ?? "",
                 who_we_are_migrants_unit_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_english ?? 0,
                 who_we_are_migrants_unit_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_bangla ?? 0,
 
+                who_we_are_saved_image: whoWeAreData?.who_we_are_saved?.who_we_are_item_image ?? "",
                 who_we_are_saved_title_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_english ?? "",
                 who_we_are_saved_title_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_bangla ?? "",
                 who_we_are_saved_unit_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_english ?? 0,
                 who_we_are_saved_unit_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_bangla ?? 0,
 
+                who_we_are_days_image: whoWeAreData?.who_we_are_days?.who_we_are_item_image ?? "",
                 who_we_are_days_title_english: whoWeAreData?.who_we_are_days?.who_we_are_item_title_english ?? "",
                 who_we_are_days_title_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_title_bangla ?? "",
                 who_we_are_days_unit_english: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_english ?? 0,
                 who_we_are_days_unit_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_bangla ?? 0,
 
+                who_we_are_employees_image: whoWeAreData?.who_we_are_employees?.who_we_are_item_image ?? "",
                 who_we_are_employees_title_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_english ?? "",
                 who_we_are_employees_title_bangla: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_bangla ?? "",
                 who_we_are_employees_unit_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_unit_english ?? 0,
@@ -148,26 +183,57 @@ const WhoWeAreComponent = () => {
                 who_we_are_title_english: whoWeAreData?.who_we_are_title_english ?? '',
                 who_we_are_title_bangla: whoWeAreData?.who_we_are_title_bangla ?? '',
 
-                who_we_are_services_title_english: whoWeAreData?.who_we_are_services_title_english ?? "",
-                who_we_are_services_title_bangla: whoWeAreData?.who_we_are_services_title_bangla ?? "",
-                who_we_are_services_unit_english: whoWeAreData?.who_we_are_services_unit_english ?? 0,
-                who_we_are_services_unit_bangla: whoWeAreData?.who_we_are_services_unit_bangla ?? 0,
+                who_we_are_additional_images: whoWeAreData?.who_we_are_additional_images ?? [],
+                // who_we_are_services_title_english: whoWeAreData?.who_we_are_services_title_english ?? "",
+                // who_we_are_services_title_bangla: whoWeAreData?.who_we_are_services_title_bangla ?? "",
+                // who_we_are_services_unit_english: whoWeAreData?.who_we_are_services_unit_english ?? 0,
+                // who_we_are_services_unit_bangla: whoWeAreData?.who_we_are_services_unit_bangla ?? 0,
 
+                // who_we_are_migrants_title_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_english ?? "",
+                // who_we_are_migrants_title_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_bangla ?? "",
+                // who_we_are_migrants_unit_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_english ?? 0,
+                // who_we_are_migrants_unit_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_bangla ?? 0,
+
+                // who_we_are_saved_title_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_english ?? "",
+                // who_we_are_saved_title_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_bangla ?? "",
+                // who_we_are_saved_unit_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_english ?? 0,
+                // who_we_are_saved_unit_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_bangla ?? 0,
+
+                // who_we_are_days_title_english: whoWeAreData?.who_we_are_days?.who_we_are_item_title_english ?? "",
+                // who_we_are_days_title_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_title_bangla ?? "",
+                // who_we_are_days_unit_english: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_english ?? 0,
+                // who_we_are_days_unit_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_bangla ?? 0,
+
+                // who_we_are_employees_title_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_english ?? "",
+                // who_we_are_employees_title_bangla: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_bangla ?? "",
+                // who_we_are_employees_unit_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_unit_english ?? 0,
+                // who_we_are_employees_unit_bangla: whoWeAreData?.who_we_are_employees?.who_we_are_item_unit_bangla ?? 0,
+
+                who_we_are_services_image: whoWeAreData?.who_we_are_services?.who_we_are_item_image ?? "",
+                who_we_are_services_title_english: whoWeAreData?.who_we_are_services?.who_we_are_item_title_english ?? "",
+                who_we_are_services_title_bangla: whoWeAreData?.who_we_are_services?.who_we_are_item_title_bangla ?? "",
+                who_we_are_services_unit_english: whoWeAreData?.who_we_are_services?.who_we_are_item_unit_english ?? 0,
+                who_we_are_services_unit_bangla: whoWeAreData?.who_we_are_services?.who_we_are_item_unit_bangla ?? 0,
+
+                who_we_are_migrants_image: whoWeAreData?.who_we_are_migrants?.who_we_are_item_image ?? "",
                 who_we_are_migrants_title_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_english ?? "",
                 who_we_are_migrants_title_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_title_bangla ?? "",
                 who_we_are_migrants_unit_english: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_english ?? 0,
                 who_we_are_migrants_unit_bangla: whoWeAreData?.who_we_are_migrants?.who_we_are_item_unit_bangla ?? 0,
 
+                who_we_are_saved_image: whoWeAreData?.who_we_are_saved?.who_we_are_item_image ?? "",
                 who_we_are_saved_title_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_english ?? "",
                 who_we_are_saved_title_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_title_bangla ?? "",
                 who_we_are_saved_unit_english: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_english ?? 0,
                 who_we_are_saved_unit_bangla: whoWeAreData?.who_we_are_saved?.who_we_are_item_unit_bangla ?? 0,
 
+                who_we_are_days_image: whoWeAreData?.who_we_are_days?.who_we_are_item_image ?? "",
                 who_we_are_days_title_english: whoWeAreData?.who_we_are_days?.who_we_are_item_title_english ?? "",
                 who_we_are_days_title_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_title_bangla ?? "",
                 who_we_are_days_unit_english: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_english ?? 0,
                 who_we_are_days_unit_bangla: whoWeAreData?.who_we_are_days?.who_we_are_item_unit_bangla ?? 0,
 
+                who_we_are_employees_image: whoWeAreData?.who_we_are_employees?.who_we_are_item_image ?? "",
                 who_we_are_employees_title_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_english ?? "",
                 who_we_are_employees_title_bangla: whoWeAreData?.who_we_are_employees?.who_we_are_item_title_bangla ?? "",
                 who_we_are_employees_unit_english: whoWeAreData?.who_we_are_employees?.who_we_are_item_unit_english ?? 0,
@@ -285,6 +351,8 @@ const WhoWeAreComponent = () => {
 
 
     const onSubmit = async (data: FormData) => {
+        console.log(data, 'data from onSubmit');
+
         setLoading(true);
         try {
             const formData = new FormData();
@@ -370,25 +438,40 @@ const WhoWeAreComponent = () => {
             }
 
             // Append image files if they exist
-            if (data.who_we_are_image instanceof File) {
+            if (data.who_we_are_image) {
                 formData.append("who_we_are_image", data.who_we_are_image);
             }
-            if (data.who_we_are_services_image instanceof File) {
+            if (data.who_we_are_services_image) {
                 formData.append("who_we_are_services_image", data.who_we_are_services_image);
             }
-            if (data.who_we_are_migrants_image instanceof File) {
+            if (data.who_we_are_migrants_image) {
                 formData.append("who_we_are_migrants_image", data.who_we_are_migrants_image);
             }
-            if (data.who_we_are_saved_image instanceof File) {
+            if (data.who_we_are_saved_image) {
                 formData.append("who_we_are_saved_image", data.who_we_are_saved_image);
             }
-            if (data.who_we_are_days_image instanceof File) {
+            if (data.who_we_are_days_image) {
                 formData.append("who_we_are_days_image", data.who_we_are_days_image);
             }
-            if (data.who_we_are_employees_image instanceof File) {
+            if (data.who_we_are_employees_image) {
                 formData.append("who_we_are_employees_image", data.who_we_are_employees_image);
             }
 
+            // Handle additional images
+            if (data.who_we_are_additional_images) {
+                const additionalImages = Array.isArray(data.who_we_are_additional_images)
+                    ? data.who_we_are_additional_images
+                    : [data.who_we_are_additional_images];
+
+                additionalImages.forEach((file, index) => {
+                    if (file instanceof File) {
+                        formData.append(`who_we_are_additional_images`, file);
+                    }
+                });
+            }
+            // for (const pair of formData.entries()) {
+            //     console.log(pair[0], pair[1]);
+            // }
             // Use the mutation
             mutate(formData);
 
@@ -456,9 +539,12 @@ const WhoWeAreComponent = () => {
                                             onChange={(e) => {
                                                 const file = e.target.files?.[0]
                                                 if (file) {
-                                                    const url = URL.createObjectURL(file)
-                                                    setImagePreview(url) // your own preview state
-                                                    field.onChange(file) // pass the file to react-hook-form
+                                                    const url = URL.createObjectURL(file);
+                                                    setImagePreview(url);
+                                                    field.onChange(file);
+                                                } else {
+                                                    // Keep the existing value if no new file is selected
+                                                    field.onChange(whoWeAreData?.who_we_are_image || "");
                                                 }
                                             }}
                                         />
@@ -778,10 +864,8 @@ const WhoWeAreComponent = () => {
                                         <FormLabel>Unit (Bangla)</FormLabel>
                                         <FormControl>
                                             <Input
-                                                type="string"
                                                 placeholder="Enter unit"
                                                 {...field}
-                                                onChange={event => field.onChange(+event.target.value)}
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -803,16 +887,18 @@ const WhoWeAreComponent = () => {
                                                     const file = e.target.files?.[0]
                                                     if (file) {
                                                         const url = URL.createObjectURL(file)
-                                                        setImagePreview(url) // your own preview state
-                                                        field.onChange(file) // pass the file to react-hook-form
+                                                        setServiceImagePreview(url)
+                                                        field.onChange(file)
+                                                    } else {
+                                                        field.onChange(whoWeAreData?.who_we_are_services?.who_we_are_item_image)
                                                     }
                                                 }}
                                             />
                                         </FormControl>
 
-                                        {imagePreview && (
+                                        {serviceImagePreview && (
                                             <img
-                                                src={imagePreview}
+                                                src={serviceImagePreview}
                                                 alt="Preview"
                                                 className="mt-2 w-32 h-32 object-cover rounded border shadow"
                                             />
@@ -882,10 +968,8 @@ const WhoWeAreComponent = () => {
                                         <FormLabel>Unit (Bangla)</FormLabel>
                                         <FormControl>
                                             <Input
-                                                type="string"
                                                 placeholder="Enter unit"
                                                 {...field}
-                                                onChange={event => field.onChange(+event.target.value)}
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -907,16 +991,18 @@ const WhoWeAreComponent = () => {
                                                     const file = e.target.files?.[0]
                                                     if (file) {
                                                         const url = URL.createObjectURL(file)
-                                                        setImagePreview(url) // your own preview state
+                                                        setMigrantsImagePreview(url) // your own preview state
                                                         field.onChange(file) // pass the file to react-hook-form
+                                                    } else {
+                                                        field.onChange(whoWeAreData?.who_we_are_migrants?.who_we_are_item_image)
                                                     }
                                                 }}
                                             />
                                         </FormControl>
 
-                                        {imagePreview && (
+                                        {migrantsImagePreview && (
                                             <img
-                                                src={imagePreview}
+                                                src={migrantsImagePreview}
                                                 alt="Preview"
                                                 className="mt-2 w-32 h-32 object-cover rounded border shadow"
                                             />
@@ -986,10 +1072,8 @@ const WhoWeAreComponent = () => {
                                         <FormLabel>Unit (Bangla)</FormLabel>
                                         <FormControl>
                                             <Input
-                                                type="string"
                                                 placeholder="Enter unit"
                                                 {...field}
-                                                onChange={event => field.onChange(+event.target.value)}
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -1011,16 +1095,18 @@ const WhoWeAreComponent = () => {
                                                     const file = e.target.files?.[0]
                                                     if (file) {
                                                         const url = URL.createObjectURL(file)
-                                                        setImagePreview(url) // your own preview state
+                                                        setSavedImagePreview(url) // your own preview state
                                                         field.onChange(file) // pass the file to react-hook-form
+                                                    } else {
+                                                        field.onChange(whoWeAreData?.who_we_are_saved?.who_we_are_item_image)
                                                     }
                                                 }}
                                             />
                                         </FormControl>
 
-                                        {imagePreview && (
+                                        {savedImagePreview && (
                                             <img
-                                                src={imagePreview}
+                                                src={savedImagePreview}
                                                 alt="Preview"
                                                 className="mt-2 w-32 h-32 object-cover rounded border shadow"
                                             />
@@ -1090,10 +1176,8 @@ const WhoWeAreComponent = () => {
                                         <FormLabel>Unit (Bangla)</FormLabel>
                                         <FormControl>
                                             <Input
-                                                type="string"
                                                 placeholder="Enter unit"
                                                 {...field}
-                                                onChange={event => field.onChange(+event.target.value)}
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -1115,16 +1199,18 @@ const WhoWeAreComponent = () => {
                                                     const file = e.target.files?.[0]
                                                     if (file) {
                                                         const url = URL.createObjectURL(file)
-                                                        setImagePreview(url) // your own preview state
+                                                        setDaysImagePreview(url) // your own preview state
                                                         field.onChange(file) // pass the file to react-hook-form
+                                                    } else {
+                                                        field.onChange(whoWeAreData?.who_we_are_days?.who_we_are_item_image)
                                                     }
                                                 }}
                                             />
                                         </FormControl>
 
-                                        {imagePreview && (
+                                        {daysImagePreview && (
                                             <img
-                                                src={imagePreview}
+                                                src={daysImagePreview}
                                                 alt="Preview"
                                                 className="mt-2 w-32 h-32 object-cover rounded border shadow"
                                             />
@@ -1219,16 +1305,18 @@ const WhoWeAreComponent = () => {
                                                     const file = e.target.files?.[0]
                                                     if (file) {
                                                         const url = URL.createObjectURL(file)
-                                                        setImagePreview(url) // your own preview state
+                                                        setEmployeesImagePreview(url) // your own preview state
                                                         field.onChange(file) // pass the file to react-hook-form
+                                                    } else {
+                                                        field.onChange(whoWeAreData?.who_we_are_employees?.who_we_are_item_image)
                                                     }
                                                 }}
                                             />
                                         </FormControl>
 
-                                        {imagePreview && (
+                                        {employeesImagePreview && (
                                             <img
-                                                src={imagePreview}
+                                                src={employeesImagePreview}
                                                 alt="Preview"
                                                 className="mt-2 w-32 h-32 object-cover rounded border shadow"
                                             />
@@ -1237,14 +1325,74 @@ const WhoWeAreComponent = () => {
                                 )}
                             />
                         </div>
-                        {/* Dynamic Items */}
-                        {/* {renderWhoWeAreItem("whoWeAreServices", "Services")} */}
-                        {/* {renderWhoWeAreItem("whoWeAreMigrants", "Migrants")}
-                        {renderWhoWeAreItem("whoWeAreSaved", "Saved")}
-                        {renderWhoWeAreItem("whoWeAreDays", "Days")}
-                        {renderWhoWeAreItem("whoWeAreEmployers", "Employers")} */}
 
+                        {/* Additional Images */}
+                        <div className="space-y-4 border rounded p-4">
+                            <h3 className="text-xl font-semibold">Additional Images</h3>
 
+                            <FormItem>
+                                <FormLabel>Upload Additional Images</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        type="file"
+                                        accept="image/*"
+                                        multiple
+                                        onChange={(e) => {
+                                            const files = Array.from(e.target.files || []);
+                                            if (files.length > 0) {
+                                                // Create preview URLs for new files
+                                                const newPreviews = files.map(file => ({
+                                                    file,
+                                                    url: URL.createObjectURL(file)
+                                                }));
+
+                                                // Combine with existing previews
+                                                setAdditionalImagePreviews(prev => [...prev, ...newPreviews]);
+
+                                                // Update form value
+                                                form.setValue(
+                                                    "who_we_are_additional_images",
+                                                    [...additionalImagePreviews.map((p) => p.file).filter(Boolean), ...files] as File[]
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </FormControl>
+
+                                {/* Display all previews */}
+                                <div className="flex flex-wrap gap-4 mt-4">
+                                    {additionalImagePreviews.map((preview, index) => (
+                                        <div key={index} className="relative">
+                                            <img
+                                                src={preview.url}
+                                                alt={`Preview ${index}`}
+                                                className="w-32 h-32 object-cover rounded border shadow"
+                                            />
+                                            <button
+                                                type="button"
+                                                className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                                                onClick={() => {
+                                                    // Remove the preview
+                                                    setAdditionalImagePreviews(prev =>
+                                                        prev.filter((_, i) => i !== index)
+                                                    );
+                                                    // Update form value
+                                                    form.setValue(
+                                                        "who_we_are_additional_images",
+                                                        additionalImagePreviews
+                                                            .filter((_, i) => i !== index)
+                                                            .filter(p => p.file)
+                                                            .map(p => p.file!)
+                                                    );
+                                                }}
+                                            >
+                                                ×
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            </FormItem>
+                        </div>
 
                         <div>
                             <Button type="submit" className="cursor-pointer bg-darkGreen hover:bg-darkGreen/90 w-full" disabled={isPending || loading}>
