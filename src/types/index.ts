@@ -96,7 +96,7 @@ export type IBanner = {
 
 
 export interface ITestimonial {
-    _id:string;
+    _id: string;
     testimonial_name?: string;
     testimonial_image?: string;
     testimonial_image_key?: string;
@@ -105,4 +105,14 @@ export interface ITestimonial {
     testimonial_status?: string;
     testimonial_serial?: number;
     testimonial_rating?: number;
+}
+
+export type AdditionalImage = {
+    additional_image: string;
+    additional_image_key: string;
+}
+
+export type WhoWeAreData = {
+    who_we_are_additional_images?: AdditionalImage[];
+    // other fields...
 }
