@@ -351,8 +351,6 @@ const WhoWeAreComponent = () => {
 
 
     const onSubmit = async (data: FormData) => {
-        console.log(data, 'data from onSubmit');
-
         setLoading(true);
         try {
             const formData = new FormData();
@@ -469,11 +467,11 @@ const WhoWeAreComponent = () => {
                     }
                 });
             }
-            // for (const pair of formData.entries()) {
-            //     console.log(pair[0], pair[1]);
-            // }
-            // Use the mutation
-            mutate(formData);
+            for (const pair of formData.entries()) {
+                console.log(pair[0], pair[1]);
+            }
+
+            // mutate(formData);
 
         } catch (error) {
             console.error("Error preparing form data:", error);
@@ -1368,7 +1366,7 @@ const WhoWeAreComponent = () => {
                                                 alt={`Preview ${index}`}
                                                 className="w-32 h-32 object-cover rounded border shadow"
                                             />
-                                            <button
+                                            {/* <button 
                                                 type="button"
                                                 className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
                                                 onClick={() => {
@@ -1387,7 +1385,7 @@ const WhoWeAreComponent = () => {
                                                 }}
                                             >
                                                 ×
-                                            </button>
+                                            </button> */}
                                         </div>
                                     ))}
                                 </div>
